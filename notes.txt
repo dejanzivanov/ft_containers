@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/6742008/what-are-the-typical-use-cases-of-an-iterator-trait
+https://stackoverflow.com/questions/5534759/c-with-crtp-class-defined-in-the-derived-class-is-not-accessible-in-the-base
