@@ -11,104 +11,123 @@
 namespace ft
 {
 	template<typename T, typename Allocator = std::allocator<T> >
-
 	// typedef typename std::allocator_traits<A>::template rebind<T> allocator;
 
-	
 	struct vectorBase
 	{
 		// A allocator;
-		
-
-
 		typedef typename Allocator::template rebind<T>::other allocator;
 		typedef typename Allocator::pointer pointer;
 
-		struct vector_implementation_data : allocator
+		struct vector_implementation_data : public allocator
 		{
-			T* start;
-			T* finish;
-			T* endOfStorage;
+			pointer start;
+			pointer finish;
+			pointer endOfStorage;
 
 			vector_implementation_data() : start(), finish(), endOfStorage() {}
-			vector_implementation_data(allocator const& a) :  allocator(a) , start(), finish(), endOfStorage() { }
+			vector_implementation_data(allocator const& a) throw() :  allocator(a) , start(), finish(), endOfStorage() { }
 		};
 
-		pointer data_allocation(size_t n)
+		// pointer data_allocation(size_t n)
+		// {
+		// 	if (n != 0)
+		// 		// return vector_implementation_data.allocate(n); // -- reminder of reality 
+		// 		return vector_implementation_data.allocate(n); // -- reminder of reality 
+		// 	else
+		// 		return pointer();
+		// }
+
+		pointer data_allocation(size_t __n)
+      {
+		typedef __gnu_cxx::__alloc_traits<allocator> _Tr;
+		return __n != 0 ? _Tr::allocate(data_implement, __n) : pointer();
+      }
+
+		void data_deallocation(pointer p, size_t n)
 		{
-			typedef std::__alloc_traits<allocator> _Tr;
-			return __n != 0 ? _Tr::allocate(vector_implementation_data, n) : pointer();
+			// if (p)
+				// vector_implementation_data.deallocate(p, n);
+				// deallocate(p, n);
+
+
+			//memory leaks maybe?
+			// if (p)
+				// deallocate(p, n);
+
+				// typedef __gnu_cxx::__alloc_traits<_Tp_alloc_type> _Tr;
+				typedef __gnu_cxx::__alloc_traits<allocator> _Tr;
+				if (p)
+				_Tr::deallocate(data_implement, p, n);
 		}
 
-		create_storage(size_t n)
+		void create_storage(size_t n)
 		{
-			this->vector_implementation_data.start = this->data_allocation(n);
-			this->vector_implementation_data.finish = this->vector_implementation_data.start;
-			this->vector_implementation_data.endOfStorage = this->vector_implementation_data.start + n;
+			this->data_implement.start = this->data_allocation(n);
+			this->data_implement.finish = this->data_implement.start;
+			this->data_implement.endOfStorage = data_implement.start + n;
 		}
 
 
-		vectorBase() { }
-		vectorBase(const Allocator& a) throw() : vector_implementation_data(__a) { }
-		vectorBase(size_t n): vector_implementation_data() { _M_create_storage(__n); } 
-		// 2
-		// 3
-		// 4
-		// 5
-		// 6
-		
-		// std::_Alloc_traits<Allocator, T>::propagate_on_container_move_assignment::value_type propagate_on_container_move_assignment;
-
+		vectorBase() : data_implement() { }
+		vectorBase(const Allocator& a) throw() : data_implement(a) { }
+		vectorBase(size_t n): data_implement() { create_storage(n); } 
+		// vectorBase(const Allocator& a, typename Allocator::size_type n)
+		// 	: data_implement()  {}
 		vectorBase(const Allocator& a, typename Allocator::size_type n)
-			: data_implement()  {}
+			: data_implement(a) { create_storage(n); }
 		
 		~vectorBase()
 		{
 			if (VECTOR_COMMENTS)
-				std::cout << "Base destructor called on " << this << " with " << this->vector_implementation_data->start << " to " << this->vector_implementation_data->finish << std::endl;
-			allocator.deallocate(vector_implementation_data->start, vector_implementation_data->finish - vector_implementation_data->start);
+				std::cout << "Base destructor called on " << this << " with " << this->data_implement.start << " to " << this->data_implement.finish << std::endl;
+			// get_allocattor().dealocate();
+			data_deallocation(data_implement.start, data_implement.finish - data_implement.start);
+			
+			// allocator.deallocate(data_implement.start, data_implement.finish - data_implement.start);
 		}
 
 		allocator get_allocator() const throw()
 		{
-			return allocator(alloc_return); 
+			return allocator(alloc_return()) ; 
 		}
 
 		allocator& alloc_return() throw()
 		{
-			return this->vector_implementation_data;
+			return this->data_implement;
 		}
 
 		const Allocator& alloc_return() const 
 		{
-			return this->vector_implementation_data;
+			return this->data_implement;
 		}
 
-		vector_implementation_data& data_implement;
+		public:
+			vector_implementation_data data_implement; // - if something doesnt work check here
 
 	};
 
 
 	// used for operations in vector
-/* 	template<typename T>
+ 	template<typename T>
 	void swap(vectorBase<T>& a, vectorBase<T>& b)
 	{
 		if (VECTOR_COMMENTS)
 			std::cout << "vectorBase swap() specialization called on " << &a << " and " << &b << std::endl;
-		std::swap(a.allocator, b.allocator);
-		std::swap(a.vector_implementation_data->start, b.vector_implementation_data->start);
-		std::swap(a.vector_implementation_data->finish, b.vector_implementation_data->finish);
-		std::swap(a.vector_implementation_data->finish, b.vector_implementation_data->finish);
-	}; */
+		// std::swap(a.allocator, b.allocator);
+		std::swap(a.data_implement.start, b.data_implement.start);
+		std::swap(a.data_implement.finish, b.data_implement.finish);
+		std::swap(a.data_implement.endOfStorage, b.data_implement.endOfStorage);
+	};
 
 	template<typename T, typename Allocator = std::allocator<T> >
-	class vector: private vectorBase<T, Allocator>
+	class vector: protected vectorBase<T, Allocator>
 	{
 		void destroy_elements()
 		{
 			if (VECTOR_COMMENTS)
 				std::cout << "Vector destroy_elements()" << std::endl;
-			for (T* p = vector_implementation_data->start; p != vector_implementation_data->finish; ++p)
+			for (T* p = this->data_implement.start; p != this->data_implement.finish; ++p)
 			{
 				if (VECTOR_COMMENTS)
 					std::cout << p << std::endl;
@@ -118,22 +137,27 @@ namespace ft
 	public:
 		
 		using vectorBase<T, Allocator>::vector_implementation_data;
+		using vectorBase<T, Allocator>::get_allocator;
+
+
 
 		typedef typename Allocator::value_type											value_type; // T would also be possible
-		typedef typename Allocator::reference								reference;
-		typedef typename Allocator::const_reference						const_reference;
-		typedef typename Allocator::pointer								pointer;
-		typedef typename Allocator::const_pointer							const_pointer;
-		typedef typename __gnu_cxx::__normal_iterator<pointer, vector>			iterator;
-		typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>	const_iterator;
-		typedef std::reverse_iterator<iterator>									reverse_iterator;
-		typedef std::reverse_iterator<const_iterator>							const_reverse_iterator;
-		typedef typename Allocator::difference_type						difference_type;
-		typedef typename Allocator::size_type								size_type;
+		typedef typename Allocator::reference											reference;
+		typedef typename Allocator::const_reference										const_reference;
+		typedef typename Allocator::pointer												pointer;
+		typedef typename Allocator::const_pointer										const_pointer;
+		typedef typename __gnu_cxx::__normal_iterator<pointer, vector>					iterator;
+		typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>			const_iterator;
+		typedef std::reverse_iterator<iterator>											reverse_iterator;
+		typedef std::reverse_iterator<const_iterator>									const_reverse_iterator;
+		typedef typename Allocator::difference_type										difference_type;
+		typedef typename Allocator::size_type											size_type;
+		
 
-
-		explicit vector (const Allocator& alloc = allocator_type())
-			:vectorBase<T, Allocator>(alloc, 0)
+		vector() : vectorBase<T, Allocator>() { }
+		
+		explicit vector (const Allocator& alloc)
+			: vectorBase<T, Allocator>(alloc, 0)
 		{
 
 		};
@@ -142,33 +166,31 @@ namespace ft
 		{
 			if (VECTOR_COMMENTS)
 				std::cout << "val: " << val << std::endl;
-			std::uninitialized_fill(vector_implementation_data->start, vector_implementation_data->start + n, val);
-			vector_implementation_data->finish = vector_implementation_data->start + n;
+			std::uninitialized_fill(this->data_implement.start, this->data_implement.start + n, val);
+			this->data_implement.finish = this->data_implement.start + n;
 		};
-		template <class InputIterator>
-		vector(ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator> first, InputIterator last, const allocator_type& alloc = allocator_type())
+		// template <class InputIterator>
+		// vector(ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator> first, InputIterator last, const allocator_type& alloc = allocator_type())
 		//vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			:vectorBase<T, Allocator>(alloc, last - first)
-		{
-			std::uninitialized_copy(first, last, this->vector_implementation_data->start);
-		}
+			// :vectorBase<T, Allocator>(alloc, last - first)
+		// {
+		// 	std::uninitialized_copy(first, last, this->vector_implementation_data->start);
+		// }
 
 		vector (const vector& x)
-			:vectorBase<T, Allocator>(x.allocator, x.capacity())
+			:vectorBase<T, Allocator>(x.get_allocator(), x.capacity())
 		{
 			if (VECTOR_COMMENTS)
 				std::cout << "Vector copy constructor called from " << &x << " on " << this << std::endl;
-			std::uninitialized_copy(x.vector_implementation_data->start, x.vector_implementation_data->finish, this->vector_implementation_data->start);
-			this->vector_implementation_data->finish = this->vector_implementation_data->start + x.size();
+			std::uninitialized_copy(x.data_implement.start, x.data_implement.finish, this->data_implement.start);
+			this->data_implement.finish = this->data_implement.start + x.size();
 		};
 		~vector()
-			{
-				if (VECTOR_COMMENTS)
-					std::cout << "Vector destructor called on " << this << std::endl;
-				destroy_elements();
-			}
-		
-
+		{
+			if (VECTOR_COMMENTS)
+				std::cout << "Vector destructor called on " << this << std::endl;
+			destroy_elements();
+		};
 
 		vector& operator=(const vector& rhs)
 		{
@@ -178,28 +200,28 @@ namespace ft
 			if (this == &rhs)
 				return *this;
 			//vectorBase<T, Allocator> temp(allocator, this->capacity() < rhs.size() ? rhs.size() : this->capacity()); // allocate memory
-			vector<T, Allocator> temp(this->capacity() < rhs.size() ? rhs.size() : this->capacity());
-			temp.vector_implementation_data->finish = temp.vector_implementation_data->start;
-			std::uninitialized_copy(rhs.vector_implementation_data->start, rhs.vector_implementation_data->finish, temp.vector_implementation_data->start); // copy the elements of rhs into a temporary 
-			temp.vector_implementation_data->finish = temp.vector_implementation_data->start + rhs.size();
+			vectorBase<T, Allocator> temp(this->capacity() < rhs.size() ? rhs.size() : this->capacity());
+			temp.data_implement.finish = temp.data_implement.start;
+			std::uninitialized_copy(rhs.data_implement.start, rhs.data_implement.finish, temp.data_implement.start); // copy the elements of rhs into a temporary 
+			temp.data_implement.finish = temp.data_implement.start + rhs.size();
 			swap(*this, temp);
 			return(*this);
 		}
 
 		size_type size() const throw()
 		{
-			return (vector_implementation_data->finish - vector_implementation_data->start);
+			return (this->data_implement.finish - this->data_implement.start);
 		}
 
 		size_type max_size() const throw()
 		{
 			//return (std::numeric_limits<size_type>::max() / sizeof(value_type));
-			return (allocator.max_size());
+			return (get_allocator().max_size());
 		}
 
 		bool empty() const throw()
 		{
-			return (vector_implementation_data->start == vector_implementation_data->finish);
+			return (this->data_implement.start == this->data_implement.finish);
 		}
 
 /* 		void resize (size_type n, value_type val = value_type())
@@ -228,7 +250,7 @@ namespace ft
 				std::cout << "Vector single element insert() called" << std::endl;
 			if (size() == 0)
 				push_back(val);
-			else if (vector_implementation_data->finish == vector_implementation_data->finish)
+			else if (this->data_implement.finish == this->data_implement.finish)
 			{
 				std::cout << "Test 0" << std::endl;
 				int temp = *position;
@@ -246,10 +268,10 @@ namespace ft
 				std::cout << "Test 2" << std::endl;
 				//vectorBase<T, Allocator> a(allocator, this->size() ? 2 * this->size() : 1);
 				vector<T, Allocator> a(this->size() ? 2 * this->size() : 1);
-				a.vector_implementation_data->finish = a.vector_implementation_data->start;
-				std::uninitialized_copy(this->vector_implementation_data->start, this->vector_implementation_data->finish, a.vector_implementation_data->start + 1);
-				a.vector_implementation_data->finish += this->size();
-				new (a.vector_implementation_data->start) T(val);
+				a.data_implement.finish = a.data_implement.start;
+				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, a.data_implement.start + 1);
+				a.data_implement.finish += this->size();
+				new (a.data_implement.start) T(val);
 				destroy_elements();
 				swap(a, *this);
 			}
@@ -270,68 +292,85 @@ namespace ft
 
 		size_type capacity() const throw()
 		{
-			return (vector_implementation_data->finish - vector_implementation_data->start);
+			return (this->data_implement.finish - this->data_implement.start);
 		}
 
 		iterator begin()
 		{
-			return (iterator(vector_implementation_data->start));
+			return (iterator(this->data_implement.start));
 		}
 
 		const_iterator begin() const
 		{
-			return (const_iterator(vector_implementation_data->start));
+			return (const_iterator(this->data_implement.start));
 		}
 
 		iterator end()
 		{
-			return (iterator(vector_implementation_data->finish));
+			return (iterator(this->data_implement.finish));
 		}
 
 		const_iterator end() const
 		{
-			return (const_iterator(vector_implementation_data->finish));
+			return (const_iterator(this->data_implement.finish));
 		}
 
 		T& operator[] (size_type i)
 		{
-			if (vector_implementation_data->start)
-				return vector_implementation_data->start[i];
-			return vector_implementation_data->start[i];//adjust
+			if (this->data_implement.start)
+				return this->data_implement.start[i];
+			return this->data_implement.start[i];//adjust
 		}
 
-//explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+		//explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 
 		void push_back(const T& x)
-		{
-			if (VECTOR_COMMENTS)
+		{	
+			if (1 == 1)
 				std::cout << "Vector push_back() called" << std::endl;
-			if (vector_implementation_data->finish == vector_implementation_data->finish)
+			if (this->data_implement.finish == this->data_implement.endOfStorage)
 			{
-				vector<T, Allocator> a(this->size() ? 2 * this->size() : 1);
-				a.vector_implementation_data->finish = a.vector_implementation_data->start;
-				std::uninitialized_copy(this->vector_implementation_data->start, this->vector_implementation_data->finish, a.vector_implementation_data->start);
-				a.vector_implementation_data->finish += this->size();
-				new (a.vector_implementation_data->finish) T(x);
-				++a.vector_implementation_data->finish;
+				vectorBase<T, Allocator> a(this->size() ? 2 * this->size() : 1);
+				std::cout << "1" << std::endl;
+				a.data_implement.finish = a.data_implement.start;
+				std::cout << "2" << std::endl;
+				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, a.data_implement.start);
+				std::cout << "3" << std::endl;
+				a.data_implement.finish += this->size();
+				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
+				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
+				std::cout << "4" << std::endl;
+				new (a.data_implement.finish) T(x);
+				std::cout << "5" << std::endl;
+				++a.data_implement.finish;
+				std::cout << "6" << std::endl;
+				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
+				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
 				//destroy_elements();
 				swap(a, *this);
+				std::cout << "7" << std::endl;
+				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
+				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
+				
 				return;
 			}
-			new (vector_implementation_data->finish) T(x);
-			++vector_implementation_data->finish;
+			std::cout << "8" << std::endl;
+			new (this->data_implement.finish) T(x);
+			std::cout << "9" << std::endl;
+			++(this->data_implement.finish);
+			std::cout << "10" << std::endl;
 		}
 	};
 
 	// used in main when swap(a,b) is called on vectors
-	template<typename T>
-	void swap(vector<T>& a, vector<T>& b)
-	{
-		if (VECTOR_COMMENTS)
-			std::cout << "vector swap() specialization called on " << &a << " and " << &b << std::endl;
-		std::swap(a.allocator, b.allocator);
-		std::swap(a.vector_implementation_data->start, b.vector_implementation_data->start);
-		std::swap(a.vector_implementation_data->finish, b.vector_implementation_data->finish);
-		std::swap(a.vector_implementation_data->finish, b.vector_implementation_data->finish);
-	};
+	// template<typename T>
+	// void swap(vector<T>& a, vector<T>& b)
+	// {
+	// 	if (VECTOR_COMMENTS)
+	// 		std::cout << "vector swap() specialization called on " << &a << " and " << &b << std::endl;
+	// 	// std::swap(a.allocator, b.allocator);
+	// 	std::swap(a.data_implement.start, b.data_implement.start);
+	// 	std::swap(a.data_implement.finish, b.data_implement.finish);
+	// 	std::swap(a.data_implement.finish, b.data_implement.finish);
+	// };
 }
