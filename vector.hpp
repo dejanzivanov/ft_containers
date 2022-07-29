@@ -5,6 +5,7 @@
 #include <exception>
 #include<limits>
 #include "utils.hpp"
+#include <iostream>
 
 #define VECTOR_COMMENTS 1
 
@@ -18,7 +19,7 @@ namespace ft
 		// A allocator;
 		typedef typename Allocator::template rebind<T>::other allocator;
 		typedef typename Allocator::pointer pointer;
-
+		
 		struct vector_implementation_data : public allocator
 		{
 			pointer start;
@@ -121,7 +122,7 @@ namespace ft
 	};
 
 	template<typename T, typename Allocator = std::allocator<T> >
-	class vector: protected vectorBase<T, Allocator>
+	class vector: private vectorBase<T, Allocator>
 	{
 		void destroy_elements()
 		{
@@ -154,29 +155,72 @@ namespace ft
 		typedef typename Allocator::size_type											size_type;
 		
 
-		vector() : vectorBase<T, Allocator>() { }
-		
-		explicit vector (const Allocator& alloc)
+		// vector() : vectorBase<T, Allocator>()
+		// {
+		// 	if (VECTOR_COMMENTS)
+		// 		std::cout << "default constructor called" << std::endl;
+			
+		// 	//this one can be deleted maybe
+		// }
+
+
+		//1)
+		explicit vector (const Allocator& alloc = Allocator()) //reference pages 
 			: vectorBase<T, Allocator>(alloc, 0)
 		{
-
+			if (VECTOR_COMMENTS)
+				std::cout << "real default constructor per reference prototype page called" << std::endl;
 		};
+
+		//2)
 		explicit vector (size_type n, const value_type& val = value_type(), const Allocator& alloc = Allocator())
 			:vectorBase<T, Allocator>(alloc, n)
 		{
 			if (VECTOR_COMMENTS)
-				std::cout << "val: " << val << std::endl;
+				std::cout << "fill constructor and n is: " << n << " and val is: " << val << std::endl;
 			std::uninitialized_fill(this->data_implement.start, this->data_implement.start + n, val);
 			this->data_implement.finish = this->data_implement.start + n;
 		};
+
+		//3) todo
+		// vector (InputIterator first, InputIterator last, const Allocator& alloc = Allocator())
+
+		template <class InputIterator>
+		// vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
+		// vector( !(ft::is_integral<InputIterator>::value) first, InputIterator last, const Allocator& alloc = Allocator())
+		vector(typename ft::enable_if<(typename InputIterator::iterator_category == std::iterator_traits::input_iterator_tag), InputIterator> first, InputIterator last, const Allocator& alloc = Allocator())
+		: vectorBase<T, Allocator>(alloc, last - first)
+		{	//range constructor
+			if(VECTOR_COMMENTS == 1)
+				std::cout << "Range constructor called" << std::endl;
+			std::uninitialized_copy(first, last, this->data_implement.start);
+		}
+
+
 		// template <class InputIterator>
-		// vector(ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator> first, InputIterator last, const allocator_type& alloc = allocator_type())
-		//vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			// :vectorBase<T, Allocator>(alloc, last - first)
-		// {
-		// 	std::uninitialized_copy(first, last, this->vector_implementation_data->start);
+		// // vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator(), typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
+		// vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
+		// : vectorBase<T, Allocator>(alloc, last - first)
+		// {	//range constructor
+		// 	if(VECTOR_COMMENTS == 1)
+		// 		std::cout << "Range constructor called" << std::endl;
+		// 	// std::uninitialized_copy(first, last, this->data_implement.start);
+
+		// 	size_type n = std::distance(first, last);
+		// 	this->data_implement.start = this->get_allocator().allocate(n);
+		// 	this->data_implement.endOfStorage = this->data_implement.start + n;
+		// 	this->data_implement.finish = this->data_implement.start;
+			
+		// 	while(n--)
+		// 	{
+		// 		this->get_allocator().construct(this->data_implement.finish++, *first++);
+		// 	}
+			
 		// }
 
+		//
+
+		//4)
 		vector (const vector& x)
 			:vectorBase<T, Allocator>(x.get_allocator(), x.capacity())
 		{
@@ -185,6 +229,8 @@ namespace ft
 			std::uninitialized_copy(x.data_implement.start, x.data_implement.finish, this->data_implement.start);
 			this->data_implement.finish = this->data_implement.start + x.size();
 		};
+
+
 		~vector()
 		{
 			if (VECTOR_COMMENTS)
@@ -204,7 +250,7 @@ namespace ft
 			temp.data_implement.finish = temp.data_implement.start;
 			std::uninitialized_copy(rhs.data_implement.start, rhs.data_implement.finish, temp.data_implement.start); // copy the elements of rhs into a temporary 
 			temp.data_implement.finish = temp.data_implement.start + rhs.size();
-			swap(*this, temp);
+			ft::swap(*this, temp);
 			return(*this);
 		}
 
@@ -273,10 +319,9 @@ namespace ft
 				a.data_implement.finish += this->size();
 				new (a.data_implement.start) T(val);
 				destroy_elements();
-				swap(a, *this);
+				ft::swap(a, *this);
 			}
 			return (this->begin());
-
 		};
 		//fill (2)	
 		void insert (iterator position, size_type n, const value_type& val)
@@ -292,7 +337,7 @@ namespace ft
 
 		size_type capacity() const throw()
 		{
-			return (this->data_implement.finish - this->data_implement.start);
+			return (this->data_implement.endOfStorage - this->data_implement.start);
 		}
 
 		iterator begin()
@@ -326,51 +371,42 @@ namespace ft
 
 		void push_back(const T& x)
 		{	
-			if (1 == 1)
+			if (VECTOR_COMMENTS == 1)
 				std::cout << "Vector push_back() called" << std::endl;
 			if (this->data_implement.finish == this->data_implement.endOfStorage)
 			{
 				vectorBase<T, Allocator> a(this->size() ? 2 * this->size() : 1);
-				std::cout << "1" << std::endl;
 				a.data_implement.finish = a.data_implement.start;
-				std::cout << "2" << std::endl;
 				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, a.data_implement.start);
-				std::cout << "3" << std::endl;
 				a.data_implement.finish += this->size();
-				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
-				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
-				std::cout << "4" << std::endl;
 				new (a.data_implement.finish) T(x);
-				std::cout << "5" << std::endl;
 				++a.data_implement.finish;
-				std::cout << "6" << std::endl;
-				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
-				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
-				//destroy_elements();
-				swap(a, *this);
-				std::cout << "7" << std::endl;
-				std::cout << "Size is: " << a.data_implement.endOfStorage - a.data_implement.start << std::endl;
-				std::cout << "Finish is: " << a.data_implement.finish - a.data_implement.start << std::endl;
-				
+				ft::swap(a, *this);
 				return;
 			}
-			std::cout << "8" << std::endl;
+
 			new (this->data_implement.finish) T(x);
-			std::cout << "9" << std::endl;
 			++(this->data_implement.finish);
-			std::cout << "10" << std::endl;
+		}
+
+		void swap(vector& x)
+		{
+			if (VECTOR_COMMENTS)
+				// std::cout << "vector swap() member function called on " << this << " and " << &x << std::endl;
+				std::cout << "vector swap() member function called" << std::endl;
+				// std::swap(a.allocator, b.allocator);
+			std::swap(this->data_implement.start, x.data_implement.start);
+			std::swap(this->data_implement.finish, x.data_implement.finish);
+			std::swap(this->data_implement.endOfStorage, x.data_implement.endOfStorage);
 		}
 	};
 
 	// used in main when swap(a,b) is called on vectors
-	// template<typename T>
-	// void swap(vector<T>& a, vector<T>& b)
-	// {
-	// 	if (VECTOR_COMMENTS)
-	// 		std::cout << "vector swap() specialization called on " << &a << " and " << &b << std::endl;
-	// 	// std::swap(a.allocator, b.allocator);
-	// 	std::swap(a.data_implement.start, b.data_implement.start);
-	// 	std::swap(a.data_implement.finish, b.data_implement.finish);
-	// 	std::swap(a.data_implement.finish, b.data_implement.finish);
-	// };
+	template<typename T>
+	void swap(vector<T>& a, vector<T>& b)
+	{
+		if (VECTOR_COMMENTS)
+			std::cout << "vector swap() specialization called on " << &a << " and " << &b << std::endl;
+		a.swap(b);
+	};
 }

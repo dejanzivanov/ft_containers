@@ -13,6 +13,9 @@
 	//#include <stack.hpp>
 	#include "vector.hpp"
 	#include "utils.hpp"
+	#include <iostream>
+	#include <sstream>
+	#include <iterator>
 #endif
 
 #include <stdlib.h>
@@ -45,7 +48,7 @@ int main(int argc, char** argv) {
 	srand(seed);
 
 	//ft::vector<std::string> vector_str;
-	ft::vector<int> vector_int(5);
+	ft::vector<int> vector_int(5, 3);
 	ft::vector<int> vector_int2(vector_int);
 	ft::vector<int> vector_int3;
 	std::cout << vector_int2.empty() << std::endl;
@@ -109,6 +112,7 @@ int main(int argc, char** argv) {
 	vector_int.push_back(90);
 	vector_int.push_back(10);
 	vector_int2[5] = 5;
+	std::cout << "Int2 5th position: " << vector_int2[5] << std::endl;
 	int sum = 0;
 	std::cout << "vector_int address, size and capacity: " << &vector_int << " | " << vector_int.size() << " | " << vector_int.capacity() << std::endl;
 	std::cout << "vector_int2 address, size and capacity: " << &vector_int2 << " | " << vector_int2.size() << " | " << vector_int2.capacity() << std::endl;
@@ -118,6 +122,8 @@ int main(int argc, char** argv) {
 	std::cout << "vector_int address, size and capacity: " << &vector_int << " | " << vector_int.size() << " | " << vector_int.capacity() << std::endl;
 	std::cout << "vector_int2 address, size and capacity: " << &vector_int2 << " | " << vector_int2.size() << " | " << vector_int2.capacity() << std::endl;
 	std::cout << "***************** Swap ********************" << std::endl;
+	vector_int2[5] = 5;
+	std::cout << "Before swap Int2 5th position: " << vector_int2[5] << std::endl;
 	swap(vector_int2, vector_int);
 	std::cout << vector_int2[5] << std::endl;
 	std::cout << vector_int2[6] << std::endl;
@@ -127,6 +133,7 @@ int main(int argc, char** argv) {
 	std::cout << vector_int[6] << std::endl;
 	std::cout << vector_int[7] << std::endl;
 	std::cout << vector_int[8] << std::endl;
+
 	std::cout << "*************************************" << std::endl;
 	std::cout << "vector_int address, size and capacity: " << &vector_int << " | " << vector_int.size() << " | " << vector_int.capacity() << std::endl;
 	std::cout << "vector_int2 address, size and capacity: " << &vector_int2 << " | " << vector_int2.size() << " | " << vector_int2.capacity() << std::endl;
@@ -216,6 +223,43 @@ int main(int argc, char** argv) {
 	std::cout << "example.second: " << example.second << std::endl;
 
 	std::cout << "********************* ft::pair test end *********************" << std::endl;
+
+	std::cout << "********************* RANGE CONSTRUCTOR TEST *********************" << std::endl;
+
+
+
+	ft::vector<int> vector_int4(vector_int2.begin(), vector_int2.end());
+	std::cout << "Vec[5] is: " << vector_int4[5] << std::endl;
+
+	// ft::vector<float> vector_float5(3.2, 4.5);
+	ft::vector<float> vector_float5(3, 6.2);
+	// ft::vector<double> vector_float5(3, 6.2);
+	std::cout << "VecFloat[1] is: " << vector_float5[1] << std::endl;
+
+	// std::vector<float> myvector(4, 6);
+    // for (std::vector<float>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+    // {
+	// 	std::cout << *it << std::endl;
+	// }    
+
+
+
+
+    // std::istringstream str("54 34 5754 344 5 6456 345 0 -1 42 69 55123");
+    // std::istream_iterator<int> itt(str);
+    // std::istream_iterator<int> ite;
+// 
+    // std::istream_iterator<int> it2;
+    // it2 = itt;
+    // std::cout << "first: " << *itt << " " << *it2 << std::endl;
+    // ++it;
+    // std::cout << "second: " << *itt << " " << *it2 << std::endl;
+    // ++it2;
+    // std::cout << "third: " << *itt << " " << *it2 << std::endl;
+    // for (; it != ite; ++it)
+    //     std::cout << *it << std::endl;
+
+
 	return (0);
 }
 
