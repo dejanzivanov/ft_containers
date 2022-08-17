@@ -232,9 +232,12 @@ int main(int argc, char** argv) {
 	std::cout << "Vec[5] is: " << vector_int4[5] << std::endl;
 
 	// ft::vector<float> vector_float5(3.2, 4.5);
-	ft::vector<float> vector_float5(3, 6.2);
-	// ft::vector<double> vector_float5(3, 6.2);
-	std::cout << "VecFloat[1] is: " << vector_float5[1] << std::endl;
+	// ft::vector<float> vector_float5(3, 6.2);
+	// ft::vector<double> vector_float5(5, 6.2);
+	// std::cout << "VecFloat[1] is: " << vector_float5[1] << std::endl;
+	// std::cout << "size of VecFloat[1] is: " << vector_float5.size() << std::endl;
+	// std::cout << "size of VecFloat5 is: " << vector_float5.size() << std::endl;
+
 
 	// std::vector<float> myvector(4, 6);
     // for (std::vector<float>::iterator it = myvector.begin(); it != myvector.end(); ++it)

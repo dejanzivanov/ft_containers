@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include <iterator>
+#include "iterator.hpp"
 #include <exception>
-#include<limits>
+#include <limits>
 #include "utils.hpp"
 #include <iostream>
 
@@ -41,6 +41,7 @@ namespace ft
 
 		pointer data_allocation(size_t __n)
       {
+
 		typedef __gnu_cxx::__alloc_traits<allocator> _Tr;
 		return __n != 0 ? _Tr::allocate(data_implement, __n) : pointer();
       }
@@ -141,14 +142,17 @@ namespace ft
 		using vectorBase<T, Allocator>::get_allocator;
 
 
+		/*normal iterator is used because is needed for vector container*/
 
 		typedef typename Allocator::value_type											value_type; // T would also be possible
 		typedef typename Allocator::reference											reference;
 		typedef typename Allocator::const_reference										const_reference;
 		typedef typename Allocator::pointer												pointer;
 		typedef typename Allocator::const_pointer										const_pointer;
-		typedef typename __gnu_cxx::__normal_iterator<pointer, vector>					iterator;
-		typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>			const_iterator;
+		typedef typename ft::__normal_iterator<pointer, vector>					iterator;
+		// typedef typename __gnu_cxx::__normal_iterator<pointer, vector>					iterator;
+		typedef typename ft::__normal_iterator<const_pointer, vector>			const_iterator;
+		// typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>			const_iterator;
 		typedef std::reverse_iterator<iterator>											reverse_iterator;
 		typedef std::reverse_iterator<const_iterator>									const_reverse_iterator;
 		typedef typename Allocator::difference_type										difference_type;
@@ -185,10 +189,17 @@ namespace ft
 		//3) todo
 		// vector (InputIterator first, InputIterator last, const Allocator& alloc = Allocator())
 
-		template <class InputIterator>
+		// template <class InputIterator>
 		// vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
+		/*maybe default ^*/
+		
 		// vector( !(ft::is_integral<InputIterator>::value) first, InputIterator last, const Allocator& alloc = Allocator())
-		vector(typename ft::enable_if<(typename InputIterator::iterator_category == std::iterator_traits::input_iterator_tag), InputIterator> first, InputIterator last, const Allocator& alloc = Allocator())
+		
+		
+		// template <class InputIterator>
+		// vector(typename ft::enable_if<(typename InputIterator::iterator_category == std::iterator_traits::input_iterator_tag), InputIterator> first, InputIterator last, const Allocator& alloc = Allocator())
+		template <class InputIterator>
+		vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
 		: vectorBase<T, Allocator>(alloc, last - first)
 		{	//range constructor
 			if(VECTOR_COMMENTS == 1)
@@ -324,16 +335,17 @@ namespace ft
 			return (this->begin());
 		};
 		//fill (2)	
-		void insert (iterator position, size_type n, const value_type& val)
-		{
+		// void insert (iterator position, size_type n, const value_type& val)
+		// {
 
-		};
+		// };
 		//range (3)	
-		template <class InputIterator>
-		void insert (iterator position, InputIterator first, InputIterator last)
-		{
+		
+		// template <class InputIterator>
+		// void insert (iterator position, InputIterator first, InputIterator last)
+		// {
 
-		};
+		// };
 
 		size_type capacity() const throw()
 		{
