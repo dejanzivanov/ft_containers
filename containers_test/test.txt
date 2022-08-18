@@ -1,0 +1,35 @@
+[0m[1m[94m# ****************************************************************************** #
+#                                                                                #
+#                                :::   :::   :::                                 #
+#                              :+:+: :+:+:  :+: :+:                              #
+#                            +:+ +:+:+ +:+ +:+                                   #
+#                           +#+  +:+  +#+ +#+ +#+                                #
+#                          +#+       +#+ +#+ #+#                                 #
+#                         #+#       #+# #+# #+#                                  #
+#                        ###       ### ### ###  containers_test                  #
+#                                                                                #
+# ****************************************************************************** #
+[0m                                  vector
+vector/assign.cpp                  : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/at.cpp                      : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/at_const.cpp                : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/bidirect_it.cpp             : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/copy_construct.cpp          : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/erase.cpp                   : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/insert.cpp                  : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/insert2.cpp                 : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/ite.cpp                     : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/ite_arrow.cpp               : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/ite_eq_ope.cpp              : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/ite_n0.cpp                  : COMPILE: [1m[92m✅[0m | RET: [1m[92m✅[0m | OUT: [1m[92m✅[0m | STD: [N]
+vector/ite_n00.cpp                 : COMPILE: [1m[92m✅[0m | RET: [1m[92m✅[0m | OUT: [1m[92m✅[0m | STD: [N]
+vector/ite_n1.cpp                  : COMPILE: [1m[92m✅[0m | RET: [1m[92m✅[0m | OUT: [1m[92m✅[0m | STD: [N]
+vector/push_pop.cpp                : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/relational_ope.cpp          : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/rev_ite_construct.cpp       : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/rite.cpp                    : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/rite2.cpp                   : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/rite_arrow.cpp              : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/rite_eq_ope.cpp             : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/size.cpp                    : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]
+vector/swap.cpp                    : COMPILE: [1m[91m❌[0m | RET: [1m[91m❌[0m | OUT: [1m[91m❌[0m | STD: [Y]

@@ -393,15 +393,15 @@ namespace ft
       typedef iterator_traits<_Iterator>		__traits_type;
 
     public:
-      typedef _Iterator					iterator_type;
+      typedef _Iterator					                iterator_type;
       typedef typename __traits_type::iterator_category iterator_category;
-      typedef typename __traits_type::value_type  	value_type;
+      typedef typename __traits_type::value_type  	    value_type;
       typedef typename __traits_type::difference_type 	difference_type;
-      typedef typename __traits_type::reference 	reference;
-      typedef typename __traits_type::pointer   	pointer;
+      typedef typename __traits_type::reference 	    reference;
+      typedef typename __traits_type::pointer   	    pointer;
 
 		//const and throw() needs to be added - Tom&Jerry
-      __normal_iterator() : _M_current(_Iterator()) { }
+      __normal_iterator() throw() : _M_current(_Iterator()) { }
 
       explicit
       __normal_iterator(const _Iterator& __i) throw()
@@ -412,8 +412,9 @@ namespace ft
         __normal_iterator(const __normal_iterator<_Iter,
 			  typename ft::enable_if<
       	       (std::__are_same<_Iter, typename _Container::pointer>::__value),
-		      _Container>::__type>& __i) throw()
+		      _Container>::type>& __i) throw()
         : _M_current(__i.base()) { }
+
 
       // Forward iterator requirements
       reference

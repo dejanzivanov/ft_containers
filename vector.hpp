@@ -7,7 +7,7 @@
 #include "utils.hpp"
 #include <iostream>
 
-#define VECTOR_COMMENTS 1
+#define VECTOR_COMMENTS 0
 
 namespace ft
 {
@@ -138,7 +138,7 @@ namespace ft
 		}
 	public:
 		
-		using vectorBase<T, Allocator>::vector_implementation_data;
+		using typename vectorBase<T, Allocator>::vector_implementation_data;
 		using vectorBase<T, Allocator>::get_allocator;
 
 
@@ -362,6 +362,16 @@ namespace ft
 			return (const_iterator(this->data_implement.start));
 		}
 
+		reverse_iterator rbegin() throw()
+		{
+			return reverse_iterator(end());
+		}
+
+		const_reverse_iterator rbegin() const throw()
+		{
+			return const_reverse_iterator(end());
+		}
+
 		iterator end()
 		{
 			return (iterator(this->data_implement.finish));
@@ -370,6 +380,16 @@ namespace ft
 		const_iterator end() const
 		{
 			return (const_iterator(this->data_implement.finish));
+		}
+
+		reverse_iterator rend() throw()
+		{
+			return reverse_iterator(begin());
+		}
+
+		const_reverse_iterator rend() const throw()
+		{ 
+			return const_reverse_iterator(begin());
 		}
 
 		T& operator[] (size_type i)
@@ -400,6 +420,81 @@ namespace ft
 			new (this->data_implement.finish) T(x);
 			++(this->data_implement.finish);
 		}
+
+		
+
+		/** REALOC START**/
+
+
+
+	template<typename _Tp, typename _Alloc>
+    void vector<_Tp, _Alloc>::_M_realloc_insert(iterator position, const _Tp& __x)
+    {
+      const size_type __len = _M_check_len(size_type(1), "vector::_M_realloc_insert");
+      pointer __old_start = this->data_implement.start;
+      pointer __old_finish = this->data_implement.finish;
+      const size_type __elems_before = position - begin();
+      pointer __new_start(this->data_allocation(__len));
+      pointer __new_finish(__new_start);
+      __try
+	{
+
+	  _Alloc_traits::construct(this->data_implement, __new_start + __elems_before, __x);
+	  __new_finish = pointer();
+
+ 
+	      __new_finish = std::__uninitialized_move_if_noexcept_a(__old_start, __position.base(),
+		  __new_start, _M_get_Tp_allocator());
+
+	      ++__new_finish;
+
+	      __new_finish
+		= std::__uninitialized_move_if_noexcept_a
+		(__position.base(), __old_finish,
+		 __new_finish, _M_get_Tp_allocator());
+	    
+	}
+      __catch(...)
+	{
+	  if (!__new_finish)
+	    _Alloc_traits::destroy(this->_M_impl,
+				   __new_start + __elems_before);
+	  else
+	    std::_Destroy(__new_start, __new_finish, _M_get_Tp_allocator());
+	  _M_deallocate(__new_start, __len);
+	  __throw_exception_again;
+	}
+		#if __cplusplus >= 201103L
+			if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
+		#endif
+	std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+      _GLIBCXX_ASAN_ANNOTATE_REINIT;
+      _M_deallocate(__old_start,
+		    this->_M_impl._M_end_of_storage - __old_start);
+      this->_M_impl._M_start = __new_start;
+      this->_M_impl._M_finish = __new_finish;
+      this->_M_impl._M_end_of_storage = __new_start + __len;
+    }
+
+		/** REALOC END**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		void swap(vector& x)
 		{
