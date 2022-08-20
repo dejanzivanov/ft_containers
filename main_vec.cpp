@@ -229,7 +229,7 @@ int main(int argc, char** argv) {
 
 
 	ft::vector<int> vector_int4(vector_int2.begin(), vector_int2.end());
-	std::cout << "Vec[5] is: " << vector_int4[5] << std::endl;
+	std::cout << "Vec[4] is: " << vector_int4[5] << std::endl;
 
 	// ft::vector<float> vector_float5(3.2, 4.5);
 	// ft::vector<float> vector_float5(3, 6.2);
@@ -261,6 +261,45 @@ int main(int argc, char** argv) {
     // std::cout << "third: " << *itt << " " << *it2 << std::endl;
     // for (; it != ite; ++it)
     //     std::cout << *it << std::endl;
+
+	std::cout << "********************* RESERVE TEST PMF *********************" << std::endl;
+
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[0] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[1] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[2] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[3] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[4] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[5] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[6] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[7] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[8] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[9] << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[10] << std::endl;
+	std::cout << "Size1 before reserve is: " << vector_int4.size() << std::endl;
+
+	vector_int4.pop_back();
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[10] << std::endl;
+	std::cout << "Size2 before reserve is: " << vector_int4.size() << std::endl;
+
+	std::cout << "Capacity of: vector_int4 is " << vector_int4.capacity() << std::endl;
+	std::cout << "Vec[4] = 30 before reserve change is: " << vector_int4[5] << std::endl;
+	std::cout << "Size before reserve is: " << vector_int4.size() << std::endl;
+	vector_int4.reserve(100);
+
+	std::cout << "Capacity of: vector_int4 after change is: " << vector_int4.capacity() << std::endl;
+	std::cout << "Vec[4] = 30 after reserve change is: " << vector_int4[5] << std::endl;
+	std::cout << "Size after reserve is: " << vector_int4.size() << std::endl;
+
+	std::cout << "** CLEAR TEST  **: " << std::endl;
+
+	vector_int4.clear();
+
+	vector_int4.push_back(1);
+	vector_int4.push_back(2);
+
+	std::cout << "Size after clear is: " << vector_int4.size() << std::endl;
+
+
 
 
 	return (0);
