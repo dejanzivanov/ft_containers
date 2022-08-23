@@ -41,27 +41,14 @@ namespace ft
 		// }
 
 		pointer data_allocation(size_t __n)
-      {
-
-		typedef __gnu_cxx::__alloc_traits<allocator> _Tr;
-		return __n != 0 ? _Tr::allocate(data_implement, __n) : pointer();
-      }
+		{
+		return __n != 0 ? get_allocator().allocate(__n) : pointer();
+		}
 
 		void data_deallocation(pointer p, size_t n)
 		{
-			// if (p)
-				// vector_implementation_data.deallocate(p, n);
-				// deallocate(p, n);
-
-
-			//memory leaks maybe?
-			// if (p)
-				// deallocate(p, n);
-
-				// typedef __gnu_cxx::__alloc_traits<_Tp_alloc_type> _Tr;
-				typedef __gnu_cxx::__alloc_traits<allocator> _Tr;
-				if (p)
-				_Tr::deallocate(data_implement, p, n);
+			if (p)
+				get_allocator().deallocate(p, n);
 		}
 
 		void create_storage(size_t n)
@@ -154,8 +141,8 @@ namespace ft
 		// typedef typename __gnu_cxx::__normal_iterator<pointer, vector>					iterator;
 		typedef typename ft::__normal_iterator<const_pointer, vector>			const_iterator;
 		// typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>			const_iterator;
-		typedef std::reverse_iterator<iterator>											reverse_iterator;
-		typedef std::reverse_iterator<const_iterator>									const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator>											reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 		typedef typename Allocator::difference_type										difference_type;
 		typedef typename Allocator::size_type											size_type;
 		

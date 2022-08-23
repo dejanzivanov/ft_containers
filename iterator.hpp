@@ -175,7 +175,7 @@ namespace ft
     protected:
       _Iterator current;
 
-      typedef iterator_traits<_Iterator>		__traits_type;
+      typedef ft::iterator_traits<_Iterator>		__traits_type;
 
     public:
       typedef _Iterator					iterator_type;
@@ -390,7 +390,7 @@ namespace ft
     protected:
       _Iterator _M_current;
 
-      typedef iterator_traits<_Iterator>		__traits_type;
+      typedef ft::iterator_traits<_Iterator>		__traits_type;
 
     public:
       typedef _Iterator					                iterator_type;
@@ -411,9 +411,11 @@ namespace ft
       template<typename _Iter>
         __normal_iterator(const __normal_iterator<_Iter,
 			  typename ft::enable_if<
-      	       (std::__are_same<_Iter, typename _Container::pointer>::__value),
+      	       (ft::are_same<_Iter, typename _Container::pointer>::value),
 		      _Container>::type>& __i) throw()
         : _M_current(__i.base()) { }
+
+		
 
 
       // Forward iterator requirements

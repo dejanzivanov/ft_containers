@@ -200,5 +200,15 @@ namespace ft
 		return (first1 == last1) && (first2 != last2);
 	}
 
+	//default template with value false
+	template <typename T, typename U>
+	struct are_same : public false_type { };
+
+
+	//specializations with true values
+	template <typename T>
+	struct are_same<T, T>
+		: public true_type {};
+
 
 }

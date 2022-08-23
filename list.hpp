@@ -5,6 +5,8 @@
 #include <exception>
 #include<limits>
 
+#include <bits/stl_iterator_base_types.h>
+
 // Simple container for singly-linked lists.
 template<typename T, typename Alloc = std::allocator<T> >
 class slist
