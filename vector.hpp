@@ -548,34 +548,13 @@ namespace ft
 
 			if(start + distance != end())
 			{
-				//copy thingies
+				
 				std::copy(start + distance, end(), start);
-				// --this->data_implement.finish;
-				// this->get_allocator().destroy(this->data_implement.finish);
-			}
-			// else
-			// {
-				//pop back thingies
-				
-				for (size_t i = 0; i < distance; i++)
-				{
-					this->pop_back();
-				}
-				
-			// }
-
+			}			
 			for (size_t i = 0; i < distance; i++)
 			{
-				start = start + i + 1;
+				this->pop_back();
 			}
-
-			// for (iterator it = this->end() - distance; it < this->end(); it++)
-			// for (size_t i = 0; i < distance; i++)
-			// {
-			// 	this->pop_back();
-			// }
-			// this->data_implement.finish -= distance + 1;
-
 		}
 
 
