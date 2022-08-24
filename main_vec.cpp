@@ -2,6 +2,7 @@
 #include <string>
 #include <deque>
 
+
 #if 0 //CREATE A REAL STL EXAMPLE
 	//#include <map>
 	//#include <stack>
@@ -164,35 +165,35 @@ int main(int argc, char** argv) {
 	ft::vector<int>::iterator it;
 	std::cout << "0 myvector address, size and capacity: " << &myvector << " | " << myvector.size() << " | " << myvector.capacity() << std::endl;
 	it = myvector.begin();
-	it = myvector.insert ( it , 200 );
+	// it = myvector.insert ( it , 200 );
 	std::cout << "myvector contains:";
 	for (it=myvector.begin(); it<myvector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	std::cout << "1 myvector address, size and capacity: " << &myvector << " | " << myvector.size() << " | " << myvector.capacity() << std::endl;
 	it = myvector.begin();
-	it = myvector.insert ( it , 201 );
+	// it = myvector.insert ( it , 201 );
 	std::cout << "myvector contains:";
 	for (it=myvector.begin(); it<myvector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	std::cout << "2 myvector address, size and capacity: " << &myvector << " | " << myvector.size() << " | " << myvector.capacity() << std::endl;
 	it = myvector.begin();
-	it = myvector.insert ( it , 202 );
+	// it = myvector.insert ( it , 202 );
 	std::cout << "myvector contains:";
 	for (it=myvector.begin(); it<myvector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	std::cout << "3 myvector address, size and capacity: " << &myvector << " | " << myvector.size() << " | " << myvector.capacity() << std::endl;
 	it = myvector.begin();
-	it = myvector.insert ( it , 203 );
+	// it = myvector.insert ( it , 203 );
 	std::cout << "myvector contains:";
 	for (it=myvector.begin(); it<myvector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	std::cout << "4 myvector address, size and capacity: " << &myvector << " | " << myvector.size() << " | " << myvector.capacity() << std::endl;
 	it = myvector.begin();
-	it = myvector.insert ( it , 204 );
+	// it = myvector.insert ( it , 204 );
 
 /* 	myvector.insert (it,2,300);
 
@@ -292,9 +293,9 @@ int main(int argc, char** argv) {
 
 	std::cout << "** CLEAR TEST  **: " << std::endl;
 
-	std::cout << "** start address  = : " <<  &vector_int4.data_implement.start  << std::endl;
-	std::cout << "** end address    = : " <<  &vector_int4.data_implement.end << std::endl;
-	std::cout << "** finish address =  : " << &vector_int4.data_implement.finish << std::endl;
+	// std::cout << "** start address  = : " <<  &vector_int4.data_implement.start  << std::endl;
+	// std::cout << "** end address    = : " <<  &vector_int4.data_implement.end << std::endl;
+	// std::cout << "** finish address =  : " << &vector_int4.data_implement.finish << std::endl;
 
 	vector_int4.clear();
 
@@ -323,12 +324,43 @@ int main(int argc, char** argv) {
 	std::cout << "Erased Value is: " << *(vec.erase(iter + 4, iter + 7)) << std::endl;
 	std::cout << "vec size is:" << vec.size() << std::endl;
 	// vec.erase(it);
+
+	
+	
 	
 	std::cout << "vec contains:";
 	for (unsigned i=0; i<vec.size(); ++i)
 		std::cout << ' ' << vec[i];
 	std::cout << '\n';
 
+	
+	ft::vector<int> vec1(vec.size());
+
+	std::copy(vec.rbegin(), vec.rend(), vec1.begin());
+
+	std::cout << "vec1 contains:";
+	for (unsigned i=0; i<vec1.size(); ++i)
+		std::cout << ' ' << vec1[i];
+	std::cout << '\n';
+
+	std::cout << "***ASSIGN TEST***\n";
+	ft::vector<int> vct_one(7);
+	ft::vector<int> vct_two(4);
+	ft::vector<int> vct_three;
+	ft::vector<int> vct_four;
+
+	for (unsigned long int i = 0; i < vct_one.size(); ++i)
+		vct_one[i] = (vct_one.size() - i) * 3;
+	for (unsigned long int i = 0; i < vct_two.size(); ++i)
+		vct_two[i] = (vct_two.size() - i) * 5;
+
+	vct_three.assign(vct_one.begin(), vct_one.end());
+	vct_one.assign(vct_two.begin(), vct_two.end());
+	vct_two.assign(2, 42);
+	vct_four.assign(4, 21);
+	vct_four.assign(6, 84);
+	vct_one.assign(5, 53);
+	vct_two.assign(vct_three.begin(), vct_three.begin() + 3);
 
 	return (0);
 }
