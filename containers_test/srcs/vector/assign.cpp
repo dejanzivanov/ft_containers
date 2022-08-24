@@ -13,15 +13,23 @@ int		main(void)
 		vct[i] = (vct.size() - i) * 3;
 	for (unsigned long int i = 0; i < vct_two.size(); ++i)
 		vct_two[i] = (vct_two.size() - i) * 5;
+	std::cout << "1111111111111111111111111111111111111111" << std::endl;
 	printSize(vct);
+	std::cout << "1111111111111111111111111111111111111111" << std::endl;
+	std::cout << "\n\n\n\n\n\n" << std::endl;
+	std::cout << "2222222222222222222222222222222222222222" << std::endl;
 	printSize(vct_two);
+	std::cout << "2222222222222222222222222222222222222222" << std::endl;
 
 	vct_three.assign(vct.begin(), vct.end());
+	// std::cout << "Vct begin == " << *(vct_two.begin()) << "vct end is: " << *(vct_two.end() - 1) << "\n";
+	// std::cerr << "Vct begin == " << *(vct_two.begin()) << "vct end is: " << *(vct_two.end() - 1) << "\n";
 	vct.assign(vct_two.begin(), vct_two.end());
 	vct_two.assign(2, 42);
 	vct_four.assign(4, 21);
 
-	std::cout << "\t### After assign(): ###" << std::endl;
+	// std::cout << "\t### After assign(): ###" << std::endl;
+
 
 	printSize(vct);
 	printSize(vct_two);
