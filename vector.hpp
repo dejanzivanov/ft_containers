@@ -513,15 +513,7 @@ namespace ft
 		iterator erase (iterator position)
 		{
 			erase_handler(1, position);
-			// return (this->begin());
-
-		// if position + distance == end
-
-			// std::copy(position + 1, end(), position);
-			// --this->data_implement.finish;
-			// this->get_allocator().destroy(this->data_implement.finish);
 			return position;
-
 		}
 
 		iterator erase (iterator first, iterator last)
@@ -529,19 +521,6 @@ namespace ft
 			size_t distance = ft::distance(first, last);
 			erase_handler(distance, first);
 			return (iterator(first));
-
-			
-			
-			// 			  3 ----  7
-			// iterator      3,4,5,6, (7)
-			// vector    1,2,3,4,5,6,7,8,9,10
-			// 		  1,2,7,8,9,10
-
-			// std::copy(position + 1, end(), position);
-			// --this->data_implement.finish;
-			// this->get_allocator().destroy(this->data_implement.finish);
-
-			
 		}
 
 		void erase_handler(size_t distance, iterator start)
@@ -549,7 +528,6 @@ namespace ft
 
 			if(start + distance != end())
 			{
-				
 				std::copy(start + distance, end(), start);
 			}			
 			for (size_t i = 0; i < distance; i++)
