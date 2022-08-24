@@ -6,7 +6,7 @@
 	//#include <map>
 	//#include <stack>
 	#include <vector>
-	#include <type_traits>
+	#include <iterator>
 	namespace ft = std;
 #else
 	//#include <map.hpp>
@@ -147,12 +147,12 @@ int main(int argc, char** argv) {
 		sum += vector_int[access];
 	} */
 
-	std::cout << "********************* is_integral *********************" << std::endl;
-	std::cout << std::boolalpha; //to convert 0 to true and 1 to false in cout.
-	std::cout << ft::is_integral<float>::value << std::endl;
-	std::cout << ft::is_integral<int>::value << std::endl;
-	std::cout << ft::is_integral<char>::value << std::endl;
-	std::cout << ft::is_integral<bool>::value << std::endl;
+	// std::cout << "********************* is_integral *********************" << std::endl;
+	// std::cout << std::boolalpha; //to convert 0 to true and 1 to false in cout.
+	// std::cout << ft::is_integral<float>::value << std::endl;
+	// std::cout << ft::is_integral<int>::value << std::endl;
+	// std::cout << ft::is_integral<char>::value << std::endl;
+	// std::cout << ft::is_integral<bool>::value << std::endl;
 	//short int i = 2; // code does not compile if type of i is not integral
 
 	//std::cout << std::boolalpha;
@@ -299,9 +299,39 @@ int main(int argc, char** argv) {
 
 	std::cout << "Size after clear is: " << vector_int4.size() << std::endl;
 
+	std::cout << "** ERASE TEST  **: " << std::endl;
 
+	ft::vector<int> vec;
+	
+	for (size_t i = 0; i <= 10; i++)
+	{
+		vec.push_back(i * 10);
+	}
+
+	
+	std::cout << "vec contains:";
+	for (unsigned i=0; i<vec.size(); ++i)
+		std::cout << ' ' << vec[i];
+	std::cout << '\n'; 
+
+	ft::vector<int>::iterator iter = vec.begin();
+	
+	std::cout << "Erased Value is: " << *(vec.erase(iter + 4, iter + 7)) << std::endl;
+	std::cout << "vec size is:" << vec.size() << std::endl;
+	// vec.erase(it);
+	
+	std::cout << "vec contains:";
+	for (unsigned i=0; i<vec.size(); ++i)
+		std::cout << ' ' << vec[i];
+	std::cout << '\n';
 
 
 	return (0);
 }
 
+
+
+// erase1            -> erase Nth element, set the finish to Nth element
+
+// erase2(iterators) -> erase everything between 
+//Iterator range ? copy all the elements from Nth untill the end

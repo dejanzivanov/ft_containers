@@ -498,7 +498,7 @@ namespace ft
 			return (*this)[n];
 		}
 
-		void pop_back()
+		void pop_back() //check for no throw
 		{
 			this->get_allocator().destroy(&this->back());
 			--this->data_implement.finish;
@@ -512,7 +512,15 @@ namespace ft
 		iterator erase (iterator position)
 		{
 			erase_handler(1, position);
-			return (this->begin());
+			// return (this->begin());
+
+		// if position + distance == end
+
+			// std::copy(position + 1, end(), position);
+			// --this->data_implement.finish;
+			// this->get_allocator().destroy(this->data_implement.finish);
+			return position;
+
 		}
 
 		iterator erase (iterator first, iterator last)
@@ -520,23 +528,57 @@ namespace ft
 			size_t distance = ft::distance(first, last);
 			erase_handler(distance, first);
 			return (iterator(first));
+
+			
+			
+			// 			  3 ----  7
+			// iterator      3,4,5,6, (7)
+			// vector    1,2,3,4,5,6,7,8,9,10
+			// 		  1,2,7,8,9,10
+
+			// std::copy(position + 1, end(), position);
+			// --this->data_implement.finish;
+			// this->get_allocator().destroy(this->data_implement.finish);
+
+			
 		}
 
 		void erase_handler(size_t distance, iterator start)
 		{
+
+			if(start + distance != end())
+			{
+				//copy thingies
+				std::copy(start + distance, end(), start);
+				// --this->data_implement.finish;
+				// this->get_allocator().destroy(this->data_implement.finish);
+			}
+			// else
+			// {
+				//pop back thingies
+				
+				for (size_t i = 0; i < distance; i++)
+				{
+					this->pop_back();
+				}
+				
+			// }
+
 			for (size_t i = 0; i < distance; i++)
 			{
 				start = start + i + 1;
 			}
 
 			// for (iterator it = this->end() - distance; it < this->end(); it++)
-			for (size_t i = 0; i < distance; i++)
-			{
-				this->pop_back();
-			}
+			// for (size_t i = 0; i < distance; i++)
+			// {
+			// 	this->pop_back();
+			// }
 			// this->data_implement.finish -= distance + 1;
 
 		}
+
+
 
 		
 
