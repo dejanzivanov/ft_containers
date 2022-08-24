@@ -292,6 +292,10 @@ int main(int argc, char** argv) {
 
 	std::cout << "** CLEAR TEST  **: " << std::endl;
 
+	std::cout << "** start address  = : " <<  &vector_int4.data_implement.start  << std::endl;
+	std::cout << "** end address    = : " <<  &vector_int4.data_implement.end << std::endl;
+	std::cout << "** finish address =  : " << &vector_int4.data_implement.finish << std::endl;
+
 	vector_int4.clear();
 
 	vector_int4.push_back(1);
