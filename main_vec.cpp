@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <iomanip>
 
 
 #if 0 //CREATE A REAL STL EXAMPLE
@@ -36,6 +37,36 @@ ft::pair<int, int> foo(int a, int b)
 
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
+
+void	outputTitle(std::string title)
+{
+	std::string	toPrint;
+	int	size = 60;
+	int	n;
+
+	toPrint = " " + title + " ";
+	n = toPrint.size();
+	if (n > size)
+	{
+		toPrint = toPrint.substr(0, size - 2);
+		toPrint[size - 4] = '.';
+		toPrint[size - 3] = ' ';
+		n = toPrint.size();
+	}
+	std::cout << std::endl << std::setfill('=') << std::setw(size) << "" << std::endl;
+	std::cout << std::setw(size / 2) << toPrint.substr(0, n / 2);
+	std::cout << toPrint.substr(n / 2, n);
+	std::cout << std::setfill('=') << std::setw(size - size / 2 - n + n / 2) << "" << std::endl;
+	std::cout << std::setfill('=') << std::setw(size) << "" << std::endl;
+}
+
+void print(int id, const ft::vector<int>& container)
+{
+    std::cout << id << ". ";	
+	for (unsigned i=0; i<container.size(); ++i)
+		std::cout << ' ' << container[i];
+	std::cout << '\n';
+}
 
 int main(int argc, char** argv) {
 	if (argc != 2)
@@ -361,6 +392,82 @@ int main(int argc, char** argv) {
 	vct_four.assign(6, 84);
 	vct_one.assign(5, 53);
 	vct_two.assign(vct_three.begin(), vct_three.begin() + 3);
+
+
+	
+
+	outputTitle("INSERT");
+	outputTitle(">First function call test");
+
+	ft::vector<int> vec_insert;
+	ft::vector<int>::iterator ve_it;
+	ft::vector<int>::iterator ve_it_end;
+
+	ve_it = vec_insert.begin();
+	ve_it_end = vec_insert.end();
+
+	vec_insert.push_back(1);
+	vec_insert.push_back(2);
+	vec_insert.push_back(3);
+	vec_insert.push_back(4);
+	vec_insert.push_back(5);
+	vec_insert.push_back(6);
+	vec_insert.push_back(7);
+
+	std::cout << "\nvec_insert contains:";
+	for (unsigned i=0; i< vec_insert.size(); ++i)
+		std::cout << ' ' << vec_insert[i];
+	std::cout << '\n';
+
+	std::cout << "Before insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
+
+	vec_insert.insert(ve_it_end, 8);
+	ve_it_end = vec_insert.end();
+	// vec_insert.insert(vec_insert.end(), 8);
+	// vec_insert.insert(vec_insert.end(), 9);
+	vec_insert.insert(ve_it_end, 9);
+
+	std::cout << "vec_insert contains:";
+	for (unsigned i=0; i<vec_insert.size(); ++i)
+		std::cout << ' ' << vec_insert[i];
+	std::cout << '\n';
+
+	std::cout << "After insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
+
+	outputTitle(">Second Function Call Test");
+
+	ft::vector<int> c1;
+    ft::vector<int> c2;
+    
+    c1.push_back(1);
+	c1.push_back(2);
+	c1.push_back(3);
+	c1.push_back(4);
+	c1.push_back(5);
+	c1.push_back(6);
+	c1.push_back(7);
+	
+	c2.push_back(1);
+	c2.push_back(2);
+	c2.push_back(3);
+	c2.push_back(4);
+	c2.push_back(5);
+	c2.push_back(6);
+	c2.push_back(7);
+	c2.push_back(8);
+	
+    print(1, c1);
+
+    print(2, c2);
+    
+    ft::vector<int>::iterator vec_insert_it = c1.begin() + 3;
+
+	std::cout << "Before insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
+    c1.insert(vec_insert_it, c2.begin(), c2.end());
+	print(3, c1);
+	std::cout << "After insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
+
+
 
 	return (0);
 }

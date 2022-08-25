@@ -325,7 +325,8 @@ namespace ft
 		//single element (1)	
 		iterator insert (iterator position, const value_type& val)
 		{
-			insert_handler(1, position, 0, INSERT_SINGLE, val);
+			insert_handler(1, position, end() - 1, INSERT_SINGLE, val);
+									//  ^ 0 was here - edited to: end() - 1
 			return iterator(position);
 
 
@@ -335,7 +336,7 @@ namespace ft
 		//fill (2)	
 		void insert (iterator position, size_type n, const value_type& val)
 		{
-			insert_handler(n, position, 0, INSERT_FILL_RANGE, val);
+			insert_handler(n, position, end() - 1, INSERT_FILL_RANGE, val);
 		}
 
 		//range (3)	
@@ -355,6 +356,36 @@ namespace ft
 				// ^             ^         ^
 				// start         finish    endOfStorage
 				//push_back
+				if(!mode && position_from != end())
+					push_back(val);
+
+				//OG
+				// vec_insert contains: 1 2 3 4 5 6 7
+				// Before insert size is: 7 and capacity is: 8
+
+				// vec_insert contains: 1 2 3 4 5 6 7 8
+				// After insert size is: 8 and capacity is: 8
+
+				//ft
+				// vec_insert contains: 1 2 3 4 5 6 7
+				// Before insert size is: 7 and capacity is: 8
+
+				// vec_insert contains: 1 2 3 4 5 6 7 8
+				// After insert size is: 9 and capacity is: 8
+
+				//Additional insert FT
+				// vec_insert contains: 1 2 3 4 5 6 7
+				// Before insert size is: 7 and capacity is: 8
+
+				// vec_insert contains: 1 2 3 4 5 6 7 8 9
+				// After insert size is: 9 and capacity is: 16
+				
+				//Additional insert FT
+				// vec_insert contains: 1 2 3 4 5 6 7
+				// Before insert size is: 7 and capacity is: 8
+
+				// vec_insert contains: 1 2 3 4 5 6 7 8 9
+				// After insert size is: 9 and capacity is: 16
 				
 			}
 			else
@@ -384,6 +415,42 @@ namespace ft
 // 						   |			  |	^ 4, 5,6,7 partial vector1 copy(position_to + distance, end())
 // 						   copy(position_to,  position_to + distance)
 										      
+
+					//reallocation
+					
+
+					vectorBase<T, Allocator> a(this->size() ? 5 * this->size() : 1);
+					// a.data_implement.finish = a.data_implement.start;
+					std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, a.data_implement.start);
+					a.data_implement.finish += this->size();
+					new (a.data_implement.finish) T(size());
+					++a.data_implement.finish;
+
+					// a.size()
+					std::uninitialized_fill(a.data_implement.start, a.data_implement.endOfStorage, 0);
+					std::cout << "Start is: " << *(a.data_implement.start) << "\n";
+					std::cout << "endOfStorage is: " << *(a.data_implement.endOfStorage) << "\n";
+					std::cout << "finish is: " << *(a.data_implement.finish) << "\n";
+					// a.data_implement.finish = this->data_implement.start;
+					// std::cout << "Position to is: " << *(position_to) << std::endl;
+					// std::copy(begin(), begin() + 3, a.data_implement.start);
+					std::copy(begin(), position_to, a.data_implement.start);
+
+					// std::copy(position_to, position_to + distance, a.data_implement.start + *(position_to)); //wonky
+					std::copy(position_from, position_from + distance, a.data_implement.start + *(position_to) - 1);
+
+					// std::copy(position_from + 5, position_from + distance, a.data_implement.start + *(position_to) - 1);
+
+					// std::copy(position_to, end(), a.data_implement.start + distance);
+
+					// a.data_implement.finish = a.data_implement.finish + distance;
+
+					ft::swap(a, *this);
+					
+					
+
+
+
 
 
 
