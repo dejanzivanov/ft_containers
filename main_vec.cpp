@@ -17,7 +17,7 @@
 	#include "utils.hpp"
 	#include <iostream>
 	#include <sstream>
-	#include <iterator>
+	// #include <iterator>
 #endif
 
 #include <stdlib.h>
@@ -420,12 +420,13 @@ int main(int argc, char** argv) {
 	std::cout << '\n';
 
 	std::cout << "Before insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
-
+	ve_it_end = vec_insert.end();
 	vec_insert.insert(ve_it_end, 8);
 	ve_it_end = vec_insert.end();
-	// vec_insert.insert(vec_insert.end(), 8);
-	// vec_insert.insert(vec_insert.end(), 9);
-	vec_insert.insert(ve_it_end, 9);
+	vec_insert.insert(vec_insert.end(), 8);
+	vec_insert.insert(vec_insert.end(), 9);
+	// vec_insert.insert(ve_it_end, 9);
+	// ve_it_end = vec_insert.end();
 
 	std::cout << "vec_insert contains:";
 	for (unsigned i=0; i<vec_insert.size(); ++i)
@@ -466,7 +467,10 @@ int main(int argc, char** argv) {
     c1.insert(vec_insert_it, c2.begin(), c2.end());
 	print(3, c1);
 	std::cout << "After insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
-
+	// std::cout << "test c1[8] size is: " << c1[8] << " and capacity is: " << c1.capacity() << "\n\n";
+	// std::cout << "test c1[9] is: " << c1[9] << " and capacity is: " << c1.capacity() << "\n\n";
+	// std::cout << "test c1[10] is: " << c1[10] << " and capacity is: " << c1.capacity() << "\n\n";
+	// std::cout << "test c1[11] is: " << c1[11] << " and capacity is: " << c1.capacity() << "\n\n";
 
 
 	return (0);
