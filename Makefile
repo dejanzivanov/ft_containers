@@ -1,5 +1,6 @@
 CC			= c++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98
+# CFLAGS		= -Wall -Wextra -Werror -std=c++98
+CFLAGS		= 
 RM			= rm -f
 SRC			= main_vec.cpp
 OBJ			= $(SRC:%.cpp=%.o)

@@ -397,80 +397,119 @@ int main(int argc, char** argv) {
 	
 
 	outputTitle("INSERT");
-	outputTitle(">First function call test");
+	// start here of subfunctions
+	// outputTitle(">First function call test");
 
-	ft::vector<int> vec_insert;
-	ft::vector<int>::iterator ve_it;
-	ft::vector<int>::iterator ve_it_end;
+	// ft::vector<int> vec_insert;
+	// ft::vector<int>::iterator ve_it;
+	// ft::vector<int>::iterator ve_it_end;
 
-	ve_it = vec_insert.begin();
-	ve_it_end = vec_insert.end();
-
-	vec_insert.push_back(1);
-	vec_insert.push_back(2);
-	vec_insert.push_back(3);
-	vec_insert.push_back(4);
-	vec_insert.push_back(5);
-	vec_insert.push_back(6);
-	vec_insert.push_back(7);
-
-	std::cout << "\nvec_insert contains:";
-	for (unsigned i=0; i< vec_insert.size(); ++i)
-		std::cout << ' ' << vec_insert[i];
-	std::cout << '\n';
-
-	std::cout << "Before insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
-	ve_it_end = vec_insert.end();
-	vec_insert.insert(ve_it_end, 8);
-	ve_it_end = vec_insert.end();
-	vec_insert.insert(vec_insert.end(), 8);
-	vec_insert.insert(vec_insert.end(), 9);
-	// vec_insert.insert(ve_it_end, 9);
+	// ve_it = vec_insert.begin();
 	// ve_it_end = vec_insert.end();
 
-	std::cout << "vec_insert contains:";
-	for (unsigned i=0; i<vec_insert.size(); ++i)
-		std::cout << ' ' << vec_insert[i];
-	std::cout << '\n';
+	// vec_insert.push_back(1);
+	// vec_insert.push_back(2);
+	// vec_insert.push_back(3);
+	// vec_insert.push_back(4);
+	// vec_insert.push_back(5);
+	// vec_insert.push_back(6);
+	// vec_insert.push_back(7);
 
-	std::cout << "After insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
+	// std::cout << "\nvec_insert contains:";
+	// for (unsigned i=0; i< vec_insert.size(); ++i)
+	// 	std::cout << ' ' << vec_insert[i];
+	// std::cout << '\n';
 
-	outputTitle(">Second Function Call Test");
-
-	ft::vector<int> c1;
-    ft::vector<int> c2;
-    
-    c1.push_back(1);
-	c1.push_back(2);
-	c1.push_back(3);
-	c1.push_back(4);
-	c1.push_back(5);
-	c1.push_back(6);
-	c1.push_back(7);
+	// std::cout << "Before insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
+	// ve_it_end = vec_insert.end();
+	// vec_insert.insert(ve_it_end, 8);
+	// ve_it_end = vec_insert.end();
+	// vec_insert.insert(vec_insert.end(), 8);
+	// vec_insert.insert(vec_insert.end(), 9);
 	
-	c2.push_back(1);
-	c2.push_back(2);
-	c2.push_back(3);
-	c2.push_back(4);
-	c2.push_back(5);
-	c2.push_back(6);
-	c2.push_back(7);
-	c2.push_back(8);
-	
-    print(1, c1);
 
-    print(2, c2);
+	// std::cout << "vec_insert contains:";
+	// for (unsigned i=0; i<vec_insert.size(); ++i)
+	// 	std::cout << ' ' << vec_insert[i];
+	// std::cout << '\n';
+
+	// std::cout << "After insert size is: " << vec_insert.size() << " and capacity is: " << vec_insert.capacity() << "\n\n";
+
+	// outputTitle(">Second Function Call Test");
+
+	// ft::vector<int> c1;
+    // ft::vector<int> c2;
     
-    ft::vector<int>::iterator vec_insert_it = c1.begin() + 3;
+    // c1.push_back(1);
+	// c1.push_back(2);
+	// c1.push_back(3);
+	// c1.push_back(4);
+	// c1.push_back(5);
+	// c1.push_back(6);
+	// c1.push_back(7);
+	
+	// c2.push_back(1);
+	// c2.push_back(2);
+	// c2.push_back(3);
+	// c2.push_back(4);
+	// c2.push_back(5);
+	// c2.push_back(6);
+	// c2.push_back(7);
+	// c2.push_back(8);
+	// c2.push_back(9);
+	
+    // print(1, c1);
 
-	std::cout << "Before insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
-    c1.insert(vec_insert_it, c2.begin(), c2.end());
-	print(3, c1);
-	std::cout << "After insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
+    // print(2, c2);
+    
+    // ft::vector<int>::iterator vec_insert_it = c1.begin() + 3;
+
+	// std::cout << "Before insert size is: " << c1.size() << " and capacity is: " << c1.capacity() << "\n\n";
+    // c1.insert(vec_insert_it, c2.begin(), c2.end());
+	// print(3, c1);
+	
+	// end here of subfunctions
+
 	// std::cout << "test c1[8] size is: " << c1[8] << " and capacity is: " << c1.capacity() << "\n\n";
 	// std::cout << "test c1[9] is: " << c1[9] << " and capacity is: " << c1.capacity() << "\n\n";
 	// std::cout << "test c1[10] is: " << c1[10] << " and capacity is: " << c1.capacity() << "\n\n";
 	// std::cout << "test c1[11] is: " << c1[11] << " and capacity is: " << c1.capacity() << "\n\n";
+
+	outputTitle(">Insert Testing");
+
+	ft::vector<int> vect10(10);
+	ft::vector<int> vect11;
+	ft::vector<int> vect12;
+
+	// for (unsigned long int i = 0; i < vect10.size(); ++i)
+		// vect10[i] = (vect10.size() - i) * 3;
+	// print(1, vect10);
+
+	vect11.insert(vect11.end(), 42); // First function call(p) and sfc1
+	/* from C11 to C20 not falied test case */ //vect11.insert(vect11.begin(), vect11.begin() + 2, 21); // Third function call(p)
+	print(2, vect11);
+
+	
+	// vect11.insert(vect11.end() - 2, 42); // First function call(p) and sfc2
+	// print(3, vect11);
+
+	//?? 2 and 84 are ints vect11.insert(vect11.end(), 2, 84); // Third function call(p)
+	// print(4, vect11);
+
+	// // vect11.resize(4);
+	// // print(5, vect11);
+
+	// ?? check for subfcntions test when everything works vect11.insert(vect11.begin() + 2, vect10.begin(), vect10.end()); // Third function call(p) and sfc2
+	// vect10.clear();
+	// print(6, vect11);
+
+	// print(7, vect10);
+
+	for (int i = 0; i < 5; ++i)
+		// vect12.insert(vect12.end(), i); // First function call(p) and sfc1
+	// vect12.insert(vect12.begin() + 1, 2, 111); // Third function call(p)
+	// print(8, vect12);
+
 
 
 	return (0);
