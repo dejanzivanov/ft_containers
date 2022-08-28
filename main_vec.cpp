@@ -485,7 +485,9 @@ int main(int argc, char** argv) {
 		// vect10[i] = (vect10.size() - i) * 3;
 	// print(1, vect10);
 
-	vect11.insert(vect11.end(), 42); // First function call(p) and sfc1
+	ft::vector<int>::iterator vect11_it = vect11.end();
+
+	vect11.insert(vect11_it, 42); // First function call(p) and sfc1
 	/* from C11 to C20 not falied test case */ //vect11.insert(vect11.begin(), vect11.begin() + 2, 21); // Third function call(p)
 	print(2, vect11);
 
@@ -505,10 +507,38 @@ int main(int argc, char** argv) {
 
 	// print(7, vect10);
 
-	for (int i = 0; i < 5; ++i)
+	// for (int i = 0; i < 5; ++i)
 		// vect12.insert(vect12.end(), i); // First function call(p) and sfc1
 	// vect12.insert(vect12.begin() + 1, 2, 111); // Third function call(p)
 	// print(8, vect12);
+
+	ft::vector<int> vect14;
+	vect14.push_back(1);
+	std::cout << "Size1 is: " << vect14.size() << std::endl;
+	vect14.push_back(2);
+	std::cout << "Size2 is: " << vect14.size() << std::endl;
+	vect14.push_back(3);
+	std::cout << "Size3 is: " << vect14.size() << std::endl;
+	vect14.push_back(4);
+	std::cout << "Size4 of vec14 before insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	vect14.insert(vect14.begin() + 2, 5);
+	std::cout << "Size5 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+
+	vect14.push_back(6);
+	// vect14.push_back(7);
+	print(9, vect14);
+
+	std::cout << "Size of vec14 is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+
+
+// FT
+// 2.  42
+// 9.  1 2 5 3 0 6 7
+// Size of vec14 is: 7 and a capacity is: 10
+
+// 2.  42
+// 9.  1 2 5 3 4 6 7
+// Size of vec14 is: 7 and a capacity is: 8
 
 
 
