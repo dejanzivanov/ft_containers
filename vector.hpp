@@ -7,6 +7,7 @@
 #include "utils.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <cstdlib>
 
 #define VECTOR_COMMENTS 0
 #define INSERT_FILL_RANGE 1
@@ -303,91 +304,20 @@ namespace ft
 
 		iterator insert(iterator position, const value_type& val)
 		{	
-			if(VECTOR_COMMENTS)
-			{
-				std::cout << "First function call" << "\n";
-			}
-				
-			// insert_handler(1, position, end() - 1, INSERT_SINGLE, val);
-									//  ^ 0 was here - edited to: end() - 1
-			// return iterator(position);
-			// return iterator(position);
-			unsigned int elem = 0;
-			for(iterator temp = begin(); temp != position; ++temp)
-			{
-				elem++;
-				if(VECTOR_COMMENTS)
-				{
-					std::cout << "temp: is " << *(temp) << std::endl;
-					std::cout << "elem: is " << elem << std::endl;
-					std::cout << "posi: is " << *(position) << std::endl;
-				}
-				
-			}
-			
-			if(size() + 1 > capacity())
-			{
-				std::cout << "resizing is: " << this->size() + 1 << std::endl;
-				std::cout << "size is: " << this->size()<< std::endl;
-				int size_reallocation = size();
-				size_reallocation = size_reallocation * 2;
-				this->reallocate(size() + 1);
-				position = this->begin();
-			
-				for(unsigned int i = 0; i < elem; ++i)
-				{
-					
-					++position;
-					
-				}
-			}
-			this->data_implement.finish++;
-			iterator temp1(position);
-			iterator temp2(position);
-			iterator end = this->end();
-
-			++temp2;
-			
-			for(; temp2 != end;  ++temp2)
-			// for(; temp2 != temp3; ++temp2)
-			{
-				if (VECTOR_COMMENTS)
-				{
-					std::cout << "pre temp2: " << *(temp2) << "\n";
-					std::cout << "pre temp1: " << *(temp1) << "\n";
-				}
-				
-				
-				*temp2 = *temp1;
-				++temp1;
-				// std::cout << "temp2 is : " << *(temp2) << "\n";
-				if (VECTOR_COMMENTS)
-				{
-					std::cout << "aft temp2: " << *(temp2) << "\n";
-					std::cout << "aft temp1: " << *(temp1) << "\n";
-				}
-				
-			}
-			std::cout << "val is: " << val << "\n";
-			*position = val;
-			std::cout << "size is: " << this->size() << "\n";
-			return position;
-		}
-
-
-//STD
-// 2.  42
-// Size of vec14 before insert is: 4 and a capacity is: 4
-// Size of vec14 after insert is: 5 and a capacity is: 8
-// 9.  1 2 5 3 4 6
-// Size of vec14 is: 6 and a capacity is: 8
-
-// FT
-// 2.  42
-// Size of vec14 before insert is: 4 and a capacity is: 4
-// Size of vec14 after insert is: 5 and a capacity is: 5
-// 9.  1 2 5 3 3 6
-// Size of vec14 is: 6 and a capacity is: 10
+			size_t elem = position - this->begin();
+		 	if(size() + 1 > capacity())
+		 	{
+		 		vectorBase<T, Allocator> temp(size() + 1);
+				std::uninitialized_copy(this->begin(), position - 1, temp.data_implement.start);
+				temp.data_implement.finish = temp.data_implement.start + elem;
+				std::uninitialized_fill_n(temp.data_implement.finish + 1, 1, val);
+				temp.data_implement.finish += 1;
+				std::uninitialized_copy(this->data_implement.start + elem + 1, this->data_implement.finish, temp.data_implement.finish + 1);
+				temp.data_implement.finish += this->end() - position;
+				ft::swap(*this, temp);
+		 	}
+		 	return position;
+		 }
 
 		void reallocate(unsigned int n)
 		{
@@ -480,8 +410,12 @@ namespace ft
 		// 		std::cout << "First function call" << "\n";
 		// 		if(!mode && position_from != end())
 		// 		{
-		// 			std::cout << "First function call" << "\n";
+		// 			std::cout << "First function calllll" << "\n";
 		// 			push_back(val);
+		// 		}
+		// 		else
+		// 		{
+		// 			//copy
 		// 		}
 		// 	}
 		// 	else
@@ -497,9 +431,9 @@ namespace ft
 		// 			a.data_implement.finish += this->size();
 
 		// 			std::uninitialized_fill(a.data_implement.start, a.data_implement.endOfStorage, 0);
-		// 			std::copy(begin(), position_to, a.data_implement.start); //works (1)
-		// 			std::copy(position_from, position_from + distance, a.data_implement.start + *(position_to) - 1); //works (2)
-		// 			std::copy(position_to, position_from, a.data_implement.start + distance + *(position_from) + 2); //works (3)
+		// 			std::uninitialized_copy(begin(), position_to, a.data_implement.start); //works (1)
+		// 			std::uninitialized_copy(position_from, position_from + distance, a.data_implement.start + *(position_to) - 1); //works (2)
+		// 			std::uninitialized_copy(position_to, position_from, a.data_implement.start + distance + *(position_from) + 2); //works (3)
 		// 			ft::swap(a, *this);
 		// 		}
 		// 		else
@@ -558,18 +492,18 @@ namespace ft
 
 
 					
-		// 		}
-		// 		else
-		// 		{
-		// 			// 1,2,3,4,5,6,7,[end]     [endOfStorage]
-		// 			// ^             ^         ^
-		// 			// start         finish    endOfStorage
-		// 			//third function_call
-		// 			//coppy correct way
-		// 			std::cout << "3rd function call" << "\n";
-		// 		}
-		// 	}
-		// }
+		//  		}
+		//  		else
+		//  		{
+		//  			// 1,2,3,4,5,6,7,[end]     [endOfStorage]
+		//  			// ^             ^         ^
+		//  			// start         finish    endOfStorage
+		//  			//third function_call
+		//  			//coppy correct way
+		//  			std::cout << "3rd function call" << "\n";
+		//  		}
+		//  	}
+		//  }
 
 	
 

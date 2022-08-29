@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	//#include <map>
 	//#include <stack>
 	#include <vector>
@@ -425,6 +425,7 @@ int main(int argc, char** argv) {
 	// vec_insert.insert(ve_it_end, 8);
 	// ve_it_end = vec_insert.end();
 	// vec_insert.insert(vec_insert.end(), 8);
+	// ve_it_end = vec_insert.end();
 	// vec_insert.insert(vec_insert.end(), 9);
 	
 
@@ -439,7 +440,7 @@ int main(int argc, char** argv) {
 
 	// ft::vector<int> c1;
     // ft::vector<int> c2;
-    
+
     // c1.push_back(1);
 	// c1.push_back(2);
 	// c1.push_back(3);
@@ -477,19 +478,19 @@ int main(int argc, char** argv) {
 
 	outputTitle(">Insert Testing");
 
-	ft::vector<int> vect10(10);
+	// ft::vector<int> vect10(10);
 	ft::vector<int> vect11;
-	ft::vector<int> vect12;
+	// ft::vector<int> vect12;
 
 	// for (unsigned long int i = 0; i < vect10.size(); ++i)
 		// vect10[i] = (vect10.size() - i) * 3;
 	// print(1, vect10);
 
-	ft::vector<int>::iterator vect11_it = vect11.end();
+	// ft::vector<int>::iterator vect11_it = vect11.end();
 
-	vect11.insert(vect11_it, 42); // First function call(p) and sfc1
+	// vect11.insert(vect11_it, 42); // First function call(p) and sfc1
 	/* from C11 to C20 not falied test case */ //vect11.insert(vect11.begin(), vect11.begin() + 2, 21); // Third function call(p)
-	print(2, vect11);
+	// print(2, vect11);
 
 	
 	// vect11.insert(vect11.end() - 2, 42); // First function call(p) and sfc2
@@ -521,14 +522,28 @@ int main(int argc, char** argv) {
 	std::cout << "Size3 is: " << vect14.size() << std::endl;
 	vect14.push_back(4);
 	std::cout << "Size4 of vec14 before insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
-	vect14.insert(vect14.begin() + 2, 5);
-	std::cout << "Size5 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	
+	
+	// ft::vector<int>::iterator vect14_it = vect14.begin() + 2;
+	// std::cout << "\nvector it + 2 = " << *(vect14_it) << "\n";
+	ft::vector<int>::iterator vect_it = vect14.begin();
+	ft::vector<int>::iterator vect_it_end1 = vect14.insert(vect_it + 2, 5);
+	// vect14.insert(vect_it + 2, 5);
+	std::cout << "return value is: " << *vect_it_end1 << "\n";
+	// std::cout << "Size5 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
 
 	vect14.push_back(6);
-	// vect14.push_back(7);
-	print(9, vect14);
+	vect14.push_back(7);
 
-	std::cout << "Size of vec14 is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	vect14.insert(vect14.end(), 5);
+	vect14.insert(vect14.end(), 54);
+
+	print(9, vect14);
+	std::cout << "Size6 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+
+	// 1 2 5 3 4 6
+
+	// std::cout << "Size of vec14 is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
 
 
 // FT
