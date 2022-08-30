@@ -310,27 +310,8 @@ namespace ft
 
 
 		iterator insert(iterator position, const value_type& val)
-		{		
-			
-			// FT 1 2 3 6 7
-			// OG 1 2 5 3 6 7 5 54
-			// std::cout << "finish is1 " <<  std::endl;
-			// std::cout << "pos1" << *(position) << std::endl;
-			// if (position == end())
-			// {
-			// 	std::cout << "position is null" << std::endl;
-			// 	// std::cout << "pos3" <<val << std::endl;
-			// 	// exit(1);
-			// 	push_back(val);
-			// 	return position;
-
-			// }
-			
-			// std::cout << "pos23" <<val << std::endl;
-			
-			
-			size_t elem = position - this->begin(); //original code
-			
+		{			
+			size_t elem = position - this->begin();
 		 	if(size() + 1 > capacity())
 		 	{
 				
@@ -346,13 +327,12 @@ namespace ft
 			}
 			else 
 			{
-				
 				std::copy(this->data_implement.start + elem , this->data_implement.finish, this->data_implement.start + elem + 1);
 				this->data_implement.finish += 1;
 				std::uninitialized_fill_n(this->data_implement.start + elem, 1, val);    
 			}			
 		 	return position;
-		 }
+		}
 
 
 //STD
