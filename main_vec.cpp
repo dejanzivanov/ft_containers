@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	//#include <map>
 	//#include <stack>
 	#include <vector>
@@ -479,7 +479,7 @@ int main(int argc, char** argv) {
 	outputTitle(">Insert Testing");
 
 	// ft::vector<int> vect10(10);
-	ft::vector<int> vect11;
+	// ft::vector<int> vect11;
 	// ft::vector<int> vect12;
 
 	// for (unsigned long int i = 0; i < vect10.size(); ++i)
@@ -513,56 +513,129 @@ int main(int argc, char** argv) {
 	// vect12.insert(vect12.begin() + 1, 2, 111); // Third function call(p)
 	// print(8, vect12);
 
-	ft::vector<int> vect14;
-	vect14.push_back(1);
-	std::cout << "Size1 is: " << vect14.size() << std::endl;
-	vect14.push_back(2);
-	std::cout << "Size2 is: " << vect14.size() << std::endl;
-	vect14.push_back(3);
-	std::cout << "Size3 is: " << vect14.size() << std::endl;
-	vect14.push_back(4);
-	std::cout << "Size4 of vec14 before insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	// ft::vector<int> vect14;
+	// vect14.push_back(1);
+	// std::cout << "Size1 is: " << vect14.size() << std::endl;
+	// vect14.push_back(2);
+	// std::cout << "Size2 is: " << vect14.size() << std::endl;
+	// vect14.push_back(3);
+	// std::cout << "Size3 is: " << vect14.size() << std::endl;
+	// vect14.push_back(4);
+	// std::cout << "Size4 of vec14 before insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
 	
 	
 	// ft::vector<int>::iterator vect14_it = vect14.begin() + 2;
 	// std::cout << "\nvector it + 2 = " << *(vect14_it) << "\n";
-	ft::vector<int>::iterator vect_it = vect14.begin();
-	ft::vector<int>::iterator vect_it_end1 = vect14.insert(vect_it + 2, 5);
+	// ft::vector<int>::iterator vect_it = vect14.begin();
+	// ft::vector<int>::iterator vect_it_end1 = vect14.insert(vect_it + 2, 5);
 	// vect14.insert(vect_it + 2, 5);
-	std::cout << "return value is: " << *vect_it_end1 << "\n";
+	// std::cout << "return value is: " << *vect_it_end1 << "\n";
 	// std::cout << "Size5 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
 
-	vect14.push_back(6);
-	vect14.push_back(7);
+	// vect14.push_back(6);
+	// vect14.push_back(7);
 
-	vect14.insert(vect14.end(), 5);
-	vect14.insert(vect14.end(), 54);
+	// vect14.insert(vect14.end(), 5);
+	// vect14.insert(vect14.end(), 54);
 
-	print(9, vect14);
-	std::cout << "Size6 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	// print(9, vect14);
+	// std::cout << "Size6 of vec14 after insert is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	// std::cout << "vect14[6] is: " << vect14[6] << "\n"; 
+	// std::cout << "vect14[5] is: " << vect14[5] << "\n"; 
+	// std::cout << "vect14[4] is: " << vect14[4] << "\n"; 
+	
+	//if
+	/*ft::vector<int> v1(10);
 
-	// 1 2 5 3 4 6
+	v1.insert(v1.begin()  , 1);
+	v1.insert(v1.begin()+ 1  , 1);
+	v1.insert(v1.begin() + 2, 2);
+	v1.insert(v1.begin() + 3, 3);
+	v1.insert(v1.begin() + 4, 4);
+	v1.insert(v1.begin() + 5, 5);
+	print(1, v1);
+	std::cout << "v1 size is: " << v1.size() << " and a capacity is: " << v1.capacity() << " before insert \n\n";
+	*/
+	//if segfault
+	//ft::vector<int> vct101(10);
+	/*
+	ft::vector<int> vct2;
+	vct2.insert(vct2.end(), 42);
+	print(102, vct2);
+*/
+	/*for (unsigned long int i = 0; i < vct101.size(); ++i)
+		vct101[i] = (vct101.size() - i) * 3;
+	print(101, vct101);
 
-	// std::cout << "Size of vec14 is: " << vect14.size() << " and a capacity is: " << vect14.capacity() << "\n\n";
+	 vct2.insert(vct2.end(), 42);
+	 print(102, vct2);
+	 std::cout << "vct2 size is: " << vct2.size() << " and a capacity is: " << vct2.capacity() << " after insert \n\n";
+	*/
+	// v1.push_back(2);
+	// v1.push_back(3);
+	// v1.push_back(4);
+	// v1.push_back(5);
+	// v1.push_back(6);
+	// v1.push_back(7);
 
+	// v2.push_back(1);
+	// v2.push_back(2);
+	// v2.push_back(3);
+	// v2.push_back(4);
+	// v2.push_back(5);
+	// v2.push_back(6);
+	// v2.push_back(7);
+	// v2.push_back(8);
 
-// FT
-// 2.  42
-// 9.  1 2 5 3 0 6 7
-// Size of vec14 is: 7 and a capacity is: 10
+	//else statement(size is not correct, try to check ths out)
+	
+	ft::vector<int> v1(5);
+	ft::vector<int> v2;
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	std::cout << "v1 size is: " << v1.size() << " and a capacity is: " << v1.capacity() << " before insert \n\n";
+	print(10, v1);
 
-// 2.  42
-// 9.  1 2 5 3 4 6 7
-// Size of vec14 is: 7 and a capacity is: 8
+	v1.insert(v1.begin() + 2, 20000);
+	print(11, v1);
 
+	std::cout << "v1 size is: " << v1.size() << " and a capacity is: " << v1.capacity() << " after insert \n\n";
+	std::cout << "v1[0] is: " << v1[0] << "\n";
+	std::cout << "v1[1] is: " << v1[1] << "\n";
+	std::cout << "v1[2] is: " << v1[2] << "\n";
+	std::cout << "v1[3] is: " << v1[3] << "\n";
+	std::cout << "v1[4] is: " << v1[4] << "\n";
+	std::cout << "v1[5] is: " << v1[5] << "\n";
+	std::cout << "v1[6] is: " << v1[6] << "\n";
+	
+	std::cout << "v1 size is: " << v1.size() << " and a capacity is: " << v1.capacity() << " after insert \n\n";
+	
+	// std::copy(v1.rbegin(), v1.rend(), v2.begin());
+	print(12, v1);
+	// v1.insert(vct2.begin(), 2, 21);
+	// v1.insert(v1.end() - 2, 42);
+	// print(11, v1);
+	// int arr[] = { 1, 2, 3, 4 ,5 ,7 };
+    
 
-
+	// ft::vector<int> vect(5);	
+	// print(12, vect);
+	// vect.push_back(1);
+	// vect.push_back(2);
+	// vect.push_back(3);
+	// vect.push_back(4);
+	// std::cout << "v1 size is: " << vect.size() << " and a capacity is: " << vect.capacity() << " before insert \n\n";
+	// std::cout << "vect[0] is: " << vect[0] << "\n";
+	// std::cout << "vect[1] is: " << vect[1] << "\n";
+	// std::cout << "vect[2] is: " << vect[2] << "\n";
+	// std::cout << "vect[3] is: " << vect[3] << "\n";
+	// std::cout << "vect[4] is: " << vect[4] << "\n";
+	// std::cout << "vect[5] is: " << vect[5] << "\n";
+	// std::cout << "vect[6] is: " << vect[6] << "\n";
+	// std::cout << "vect[7] is: " << vect[7] << "\n";
+	
+	// vect.insert(vect.begin() + 2, 20000);
+	// print(13, vect);
 	return (0);
 }
-
-
-
-// erase1            -> erase Nth element, set the finish to Nth element
-
-// erase2(iterators) -> erase everything between 
-//Iterator range ? copy all the elements from Nth untill the end

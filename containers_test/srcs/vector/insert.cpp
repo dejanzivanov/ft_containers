@@ -23,13 +23,16 @@ int		main(void)
 	for (unsigned long int i = 0; i < vct.size(); ++i)
 		vct[i] = (vct.size() - i) * 3;
 	printSize(vct);
-
 	vct2.insert(vct2.end(), 42);
 	// vct2.insert(vct2.begin(), 2, 21);
+	vct2.insert(vct2.begin(), 1);
+	vct2.insert(vct2.begin() + 1, 2);
+	vct2.insert(vct2.begin() + 2, 3);
+	vct2.insert(vct2.begin() + 3, 4);
 	printSize(vct2);
 
-	// vct2.insert(vct2.end() - 2, 42);
-	// printSize(vct2);
+	vct2.insert(vct2.end() - 2, 42);
+	printSize(vct2);
 
 	// vct2.insert(vct2.end(), 2, 84);
 	// printSize(vct2);
@@ -43,10 +46,10 @@ int		main(void)
 
 	// printSize(vct);
 
-	// for (int i = 0; i < 5; ++i)
-	// 	vct3.insert(vct3.end(), i);
+	for (int i = 0; i < 5; ++i)
+		vct3.insert(vct3.end(), i);
 	// vct3.insert(vct3.begin() + 1, 2, 111);
-	// printSize(vct3);
+	printSize(vct3);
 
 	return (0);
 }

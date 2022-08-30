@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
+#include <algorithm>
+#include <cstring>
 
 #define VECTOR_COMMENTS 0
 #define INSERT_FILL_RANGE 1
@@ -292,35 +294,83 @@ namespace ft
 			vector_implementation_data->finish = vector_implementation_data->start + n;
 		} */
 
-// OG results:
-// 1.  30 27 24 21 18 15 12 9 6 3
-// 2.  21 21 42
-// 3.  21 42 21 42
-// 4.  21 42 21 42 84 84
-// 6.  21 42 30 27 24 21 18 15 12 9 6 3 21 42 84 84
-// 7. 
-// 8.  0 111 111 1 2 3 4
+// FT 
+// Size6 of vec14 after insert is: 8 and a capacity is: 8
+// 9.  1 2 3 6 7
+// Size6 of vec14 after insert is: 5 and a capacity is: 8
+// 10.  0 0 0 0 0 1 2 3
+// 11.  0 0 20000 0 0 0 1 2 3
+// v1 size is: 9 and a capacity is: 9 after insert
+
+// STD
+// 10.  0 0 0 0 0 1 2 3
+// 11.  0 0 20000 0 0 0 1 2 3
+// v1 size is: 9 and a capacity is: 10 after insert 
+
 
 
 		iterator insert(iterator position, const value_type& val)
-		{	
-			size_t elem = position - this->begin();
+		{		
+			
+			// FT 1 2 3 6 7
+			// OG 1 2 5 3 6 7 5 54
+			// std::cout << "finish is1 " <<  std::endl;
+			// std::cout << "pos1" << *(position) << std::endl;
+			// if (position == end())
+			// {
+			// 	std::cout << "position is null" << std::endl;
+			// 	// std::cout << "pos3" <<val << std::endl;
+			// 	// exit(1);
+			// 	push_back(val);
+			// 	return position;
+
+			// }
+			
+			// std::cout << "pos23" <<val << std::endl;
+			
+			
+			size_t elem = position - this->begin(); //original code
+			
 		 	if(size() + 1 > capacity())
 		 	{
-		 		vectorBase<T, Allocator> temp(size() + 1);
-				std::uninitialized_copy(this->begin(), position - 1, temp.data_implement.start);
+				
+		 		vectorBase<T, Allocator> temp(this->size() + 1);
+				std::uninitialized_fill(temp.data_implement.start, temp.data_implement.finish , temp.data_implement.start[0]); // mayb remove
+				std::uninitialized_copy(this->begin(), this->begin() + elem, temp.data_implement.start);
 				temp.data_implement.finish = temp.data_implement.start + elem;
-				std::uninitialized_fill_n(temp.data_implement.finish + 1, 1, val);
+				std::uninitialized_fill_n(temp.data_implement.finish, 1, val);
 				temp.data_implement.finish += 1;
-				std::uninitialized_copy(this->data_implement.start + elem + 1, this->data_implement.finish, temp.data_implement.finish + 1);
+				std::uninitialized_copy(this->data_implement.start + elem, this->data_implement.finish, temp.data_implement.finish);
 				temp.data_implement.finish += this->end() - position;
 				ft::swap(*this, temp);
-		 	}
+			}
+			else 
+			{
+				
+				std::copy(this->data_implement.start + elem , this->data_implement.finish, this->data_implement.start + elem + 1);
+				this->data_implement.finish += 1;
+				std::uninitialized_fill_n(this->data_implement.start + elem, 1, val);    
+			}			
 		 	return position;
 		 }
 
+
+//STD
+// 2.  42
+// Size of vec14 before insert is: 4 and a capacity is: 4
+// Size of vec14 after insert is: 5 and a capacity is: 8
+// 9.  1 2 5 3 4 6
+// Size of vec14 is: 6 and a capacity is: 8
+
+// FT
+// 2.  42
+// Size of vec14 before insert is: 4 and a capacity is: 4
+// Size of vec14 after insert is: 5 and a capacity is: 5
+// 9.  1 2 5 3 3 6
+// Size of vec14 is: 6 and a capacity is: 10
+
 		void reallocate(unsigned int n)
-		{
+		{	
 			if(VECTOR_COMMENTS)
 				std::cout << "Reallocate called" << "\n";
 			vectorBase<T, Allocator> temp(n);
@@ -337,7 +387,8 @@ namespace ft
 			// std::cout << position << std::endl;
 			// std::cout << n << std::endl;
 			// std::cout << val << std::endl;
-			std::cout << 2 << std::endl;
+			std::cout << "meow" << std::endl;
+			// exit(1);
 			position++;
 			n++;
 			val++;
@@ -348,7 +399,7 @@ namespace ft
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last)
 		{
-			std::cout << 2 << std::endl;
+			std::cout << "meow" << std::endl;
 			// std::cout << "Third function call" << "\n";
 			// size_t distance = ft::distance(first, last);
 			// insert_handler(distance, position, first, INSERT_FILL_RANGE, 0);

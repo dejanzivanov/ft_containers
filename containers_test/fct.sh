@@ -18,7 +18,7 @@ CFLAGS="-Wall -Wextra -Werror -std=c++98"
 # CFLAGS+=" -fsanitize=address -g3"
 
 # ft_compile_output="/dev/null"
-ft_compile_output="/dev/pts/10"
+ft_compile_output="/dev/pts/7"
 std_compile_output="/dev/null"
 # std_compile_output="/dev/pts/12"
 
