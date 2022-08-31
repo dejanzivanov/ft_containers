@@ -637,5 +637,59 @@ int main(int argc, char** argv) {
 	
 	// vect.insert(vect.begin() + 2, 20000);
 	// print(13, vect);
+
+	outputTitle("Testing the insert 3rd insert function");
+	ft::vector<int> vect5;
+	vect5.insert(vect5.begin(), 1);
+	vect5.insert(vect5.begin() + 1, 2);
+	vect5.insert(vect5.begin() + 2, 3);
+	vect5.insert(vect5.begin() + 3, 4);
+	vect5.insert(vect5.begin() + 4, 5);
+	vect5.insert(vect5.begin() + 5, 6);
+	vect5.insert(vect5.begin() + 6, 7);
+	
+	ft::vector<int> vect6;
+	vect6.insert(vect6.begin(), 1);
+	vect6.insert(vect6.begin() + 1, 2);
+	vect6.insert(vect6.begin() + 2, 3);
+	vect6.insert(vect6.begin() + 3, 4);
+	vect6.insert(vect6.begin() + 4, 5);
+	vect6.insert(vect6.begin() + 5, 6);
+	vect6.insert(vect6.begin() + 6, 7);
+	vect6.insert(vect6.begin() + 7, 8);
+
+	std::cout << "vect6 is : ";
+	print(14, vect5);
+	std::cout << "vect7 is : ";
+	print(16, vect6);
+
+	ft::vector<int>::iterator vec_insert_it = vect5.begin() + 3;
+
+	std::cout << "Before insert vect5 size is: " << vect5.size() << " and capacity is: " << vect5.capacity() << "\n\n";
+	std::cout << "Before insert vect6 size is: " << vect6.size() << " and capacity is: " << vect6.capacity() << "\n\n";
+    vect5.insert(vec_insert_it, vect6.begin(), vect6.end());
+	std::cout << "After insert vec5 + vec6 = ";
+	print(17, vect5);
+	vect6.insert(vect6.begin(), 2);
+	print(18, vect6);
+	std::cout << "After insert vect5 size is: " << vect5.size() << " and capacity is: " << vect5.capacity() << "\n\n";
+	std::cout << "After insert vect6 size is: " << vect6.size() << " and capacity is: " << vect6.capacity() << "\n\n";
+    
+	std::cout << "vect5 is : " << *(vect5.begin()) << "\n";
+
+	
+	outputTitle("Testing the insert 2nd insert function");
+	vect6.insert(vect6.begin(), 2, 21);
+	print(19, vect6);
+
+	vect6.insert(vect6.end() - 2, 42);
+	print(20, vect6);
+
+	vect6.insert(vect6.end(), 2, 84);
+	print(21, vect6);
+	ft::vector<int>::iterator vec6_end_it = vect6.insert(vect6.end(), 42);
+	// vect6.insert(vect6.end(), 2, 84);
+	print(22, vect6);
+	std::cout << "return value is: " << *vec6_end_it << "\n";
 	return (0);
 }

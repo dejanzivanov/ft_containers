@@ -314,7 +314,6 @@ namespace ft
 			size_t elem = position - this->begin();
 		 	if(size() + 1 > capacity())
 		 	{
-				
 		 		vectorBase<T, Allocator> temp(this->size() + 1);
 				std::uninitialized_fill(temp.data_implement.start, temp.data_implement.finish , temp.data_implement.start[0]); // mayb remove
 				std::uninitialized_copy(this->begin(), this->begin() + elem, temp.data_implement.start);
@@ -331,24 +330,75 @@ namespace ft
 				this->data_implement.finish += 1;
 				std::uninitialized_fill_n(this->data_implement.start + elem, 1, val);    
 			}			
-		 	return position;
+			return iterator(begin() + elem);
 		}
 
+		//fill (2)	
+		void insert(iterator position, size_type n, const value_type& val)
+		{	
+			//insert the same value multiple times
 
-//STD
-// 2.  42
-// Size of vec14 before insert is: 4 and a capacity is: 4
-// Size of vec14 after insert is: 5 and a capacity is: 8
-// 9.  1 2 5 3 4 6
-// Size of vec14 is: 6 and a capacity is: 8
+			size_t elem = position - this->begin();
+			if(size() + n > capacity())
+			{
+				vectorBase<T, Allocator> temp(this->size() + n);
+				std::uninitialized_fill(temp.data_implement.start, temp.data_implement.finish , temp.data_implement.start[0]); // mayb remove
+				std::uninitialized_copy(this->begin(), this->begin() + elem, temp.data_implement.start);
+				temp.data_implement.finish = temp.data_implement.start + elem;
+				std::uninitialized_fill_n(temp.data_implement.finish, n, val);
+				temp.data_implement.finish += n;
+				std::uninitialized_copy(this->data_implement.start + elem, this->data_implement.finish, temp.data_implement.finish);
+				temp.data_implement.finish += this->end() - position;
+				ft::swap(*this, temp);
+			}
+			else 
+			{
+				std::copy(this->data_implement.start + elem , this->data_implement.finish, this->data_implement.start + elem + n);
+				this->data_implement.finish += n;
+				std::uninitialized_fill_n(this->data_implement.start + elem, n, val);    
+			}
+		}
 
-// FT
-// 2.  42
-// Size of vec14 before insert is: 4 and a capacity is: 4
-// Size of vec14 after insert is: 5 and a capacity is: 5
-// 9.  1 2 5 3 3 6
-// Size of vec14 is: 6 and a capacity is: 10
+		//range (3)	
+		template <class InputIterator>
+		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+		{
+			
+			size_t distance = ft::distance(first, last);	
+			vectorBase<T, Allocator> a(this->size() + distance);
+			std::uninitialized_fill(a.data_implement.start, a.data_implement.endOfStorage, 0);
+			
+			std::copy(begin(), position, a.data_implement.start);
+			a.data_implement.finish += ft::distance(begin(), position);
+			std::copy(first, last, a.data_implement.finish);
+			a.data_implement.finish += ft::distance(first, last);
+			std::copy(position, end(), a.data_implement.finish);
+			a.data_implement.finish += ft::distance(position, end());
+			
+			ft::swap(a, *this);
+		}
 
+		void resize(size_type new_size)
+		{
+			//This functiion will resize the vector to the specified number of elements,
+			// If the number is smaller then the vector is truncated, otherwise default constructed elements are appended
+
+			if(new_size > size())
+			{
+				vectorBase<T, Allocator> temp(new_size);
+				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, temp.data_implement.start);
+				temp.data_implement.finish = temp.data_implement.start + new_size;
+				ft::swap(*this, temp);
+			}
+			else if(new_size < size())
+			{
+				vectorBase<T, Allocator> temp(new_size);
+				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, temp.data_implement.start);
+				temp.data_implement.finish = temp.data_implement.start + new_size;
+				ft::swap(*this, temp);
+			}
+		}
+	
 		void reallocate(unsigned int n)
 		{	
 			if(VECTOR_COMMENTS)
@@ -357,192 +407,7 @@ namespace ft
 			std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, temp.data_implement.start);
 			temp.data_implement.finish = temp.data_implement.start + this->size();
 			ft::swap(*this, temp);
-		}
-
-		//fill (2)	
-		void insert(iterator position, size_type n, const value_type& val)
-		{	//std::cout << "Second function call" << "\n";
-			// insert_handler(n, position, end() - 1, INSERT_FILL_RANGE, val);
-			
-			// std::cout << position << std::endl;
-			// std::cout << n << std::endl;
-			// std::cout << val << std::endl;
-			std::cout << "meow" << std::endl;
-			// exit(1);
-			position++;
-			n++;
-			val++;
-
-		}
-
-		//range (3)	
-		template <class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last)
-		{
-			std::cout << "meow" << std::endl;
-			// std::cout << "Third function call" << "\n";
-			// size_t distance = ft::distance(first, last);
-			// insert_handler(distance, position, first, INSERT_FILL_RANGE, 0);
-			
-			// std::cout << position << std::endl;
-			// std::cout << first << std::endl;
-			// std::cout << last << std::endl;
-
-			position++;
-			first++;
-			last++; 
-			
-		}
-
-		// void insert_handler(size_t distance, iterator position_to, iterator position_from, bool mode, const value_type& val)
-		// {
-		// 	if(position_to == end())
-		// 	{
-		// 		std::cout << "Firstt function call" << "\n";
-		// 	}
-		// 	else
-		// 	{	
-		// 		if(capacity() < (size() + distance))
-		// 		{
-		// 			std::cout << "Secondd function call" << "\n";
-		// 		}
-		// 		else
-		// 		{
-		// 			std::cout << "Thirdd function call" << "\n";
-		// 		}
-		// 	}
-		// }
-
-		// iterator insert (iterator position, const value_type& val)
-		// {
-		// 	insert_handler(1, position, end() - 1, INSERT_SINGLE, val);
-		// 							//  ^ 0 was here - edited to: end() - 1
-		// 	return iterator(position);
-		// }
-
-		// //fill (2)	
-		// void insert (iterator position, size_type n, const value_type& val)
-		// {
-		// 	insert_handler(n, position, end() - 1, INSERT_FILL_RANGE, val);
-		// }
-
-		// //range (3)	
-		// template <class InputIterator>
-		// void insert (iterator position, InputIterator first, InputIterator last)
-		// {
-		// 	size_t distance = ft::distance(first, last);
-		// 	insert_handler(distance, position, first, INSERT_FILL_RANGE, 0);
-		// }
-
-		// void insert_handler(size_t distance, iterator position_to, iterator position_from, bool mode, const value_type& val)
-		// {
-		// 	if(position_to == end())
-		// 	{
-		// 		std::cout << "First function call" << "\n";
-		// 		if(!mode && position_from != end())
-		// 		{
-		// 			std::cout << "First function calllll" << "\n";
-		// 			push_back(val);
-		// 		}
-		// 		else
-		// 		{
-		// 			//copy
-		// 		}
-		// 	}
-		// 	else
-		// 	{	
-		// 		std::cout << "Second function call" << "\n";
-				
-		// 		if(capacity() < (size() + distance))
-		// 		{
-		// 			vectorBase<T, Allocator> a(this->size() + distance);
-		// 			std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, a.data_implement.start);
-		// 			a.data_implement.finish += this->size() + 1;
-		// 			new (a.data_implement.finish) T(size() + distance + 1);
-		// 			a.data_implement.finish += this->size();
-
-		// 			std::uninitialized_fill(a.data_implement.start, a.data_implement.endOfStorage, 0);
-		// 			std::uninitialized_copy(begin(), position_to, a.data_implement.start); //works (1)
-		// 			std::uninitialized_copy(position_from, position_from + distance, a.data_implement.start + *(position_to) - 1); //works (2)
-		// 			std::uninitialized_copy(position_to, position_from, a.data_implement.start + distance + *(position_from) + 2); //works (3)
-		// 			ft::swap(a, *this);
-		// 		}
-		// 		else
-		// 		{
-		// 			std::cout << "3rd function call" << "\n";
-		// 		}
-		// 	}
-		// }
-
-		
-
-
-
-
-		// void insert_handler(size_t distance, iterator position_to, iterator position_from, bool mode, const value_type& val)
-		// {
-		// 	if(position_to == end())
-		// 	{
-				
-		// 	}
-		// 	else
-		// 	{
-		// 		if(capacity() < (size() + distance))
-		// 		{
-					//second function_call
-
-// 					size(elements)	+	 _ 20 elements(distance) = 27 1-8
-// position(insert elements here(4))	    |
-// 						 \/			    |
-// 					1,2,3,4,5,6,7,[end] + 11,12,13     [endOfStorage]
-// 					^             ^                    ^
-// 					start         finish               endOfStorage 
-// 					^                                  ^=[endOfStorage - start] capacity
-// 					15 < 27
-// 					//reallocation - space for all elements, unit_copy/fill
-// 					// copy elements into it
-// 					//insert elements at position
-
-// 												(1)			(4)
-// 					1,2,3, partial vector1 copy(begin(), position_to, a.data_implement.start) (1)
-// 					|
-// 				   -1,2,3, 1,2,3,4,5,6,7,8, 4,5,6,7
-// 				   |	   |              |      |
-//a.da-impl.start _|	   |			  |  	 | 
-// 						   |			  |	^ 4, 5,6,7 partial vector1 copy(position_to, position_from, a.data_implement.start + distance + *(position_from) + 2) (3)
-// 						   copy(position_from, position_from + distance, a.data_implement.start + *(position_to) - 1); (2)
-						//    |
-						//   _|			      
-
-					//insert multiple elements in vector container
-
-
-					//insert single element in vector container
-
-					//insert multiple elements in vector container
-
-
-					
-		//  		}
-		//  		else
-		//  		{
-		//  			// 1,2,3,4,5,6,7,[end]     [endOfStorage]
-		//  			// ^             ^         ^
-		//  			// start         finish    endOfStorage
-		//  			//third function_call
-		//  			//coppy correct way
-		//  			std::cout << "3rd function call" << "\n";
-		//  		}
-		//  	}
-		//  }
-
-	
-
-		
-		
-		
-
-		
+		}				
 
 		size_type capacity() const throw()
 		{
@@ -550,6 +415,11 @@ namespace ft
 		}
 
 		iterator begin()
+		{
+			return (iterator(this->data_implement.start));
+		}
+
+		const_iterator cbegin() const throw()
 		{
 			return (iterator(this->data_implement.start));
 		}
