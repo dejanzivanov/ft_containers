@@ -19,7 +19,7 @@ int		main(void)
 	vct.assign(lst.begin(), lst.end());
 	printSize(vct);
 
-	// vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	// printSize(vct);
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
 	return (0);
 }

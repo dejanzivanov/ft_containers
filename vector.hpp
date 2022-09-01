@@ -608,6 +608,11 @@ namespace ft
 			}
 		}
 
+		
+
+
+
+
 		//fill (2)	
 		void assign (size_type n, const value_type& val)
 		{

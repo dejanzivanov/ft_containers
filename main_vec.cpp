@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	//#include <map>
 	//#include <stack>
 	#include <vector>
@@ -691,5 +691,23 @@ int main(int argc, char** argv) {
 	// vect6.insert(vect6.end(), 2, 84);
 	print(22, vect6);
 	std::cout << "return value is: " << *vec6_end_it << "\n";
+	
+	outputTitle("Testing the bidirectional iterator");
+
+	ft::vector<int> lst;
+	ft::vector<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	ft::vector<int> vct(lst.begin(), lst.end());
+	print(23, vct);
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	print(24, vct);
+	
 	return (0);
+
 }

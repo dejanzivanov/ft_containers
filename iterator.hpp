@@ -114,7 +114,8 @@ namespace ft
     inline typename iterator_traits<_InputIterator>::difference_type
     distance(_InputIterator __first, _InputIterator __last)
     {
-      return ft::__distance(__first, __last, ft::__iterator_category(__first));
+    //   return ft::__distance(__first, __last, ft::__iterator_category(__first));
+      return __distance(__first, __last, ft::__iterator_category(__first)); // deleted ft in order for return value to be correct
     }
 
     template<typename _InputIterator, typename _Distance>
