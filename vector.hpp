@@ -193,7 +193,7 @@ namespace ft
 		// vector(typename ft::enable_if<(typename InputIterator::iterator_category == std::iterator_traits::input_iterator_tag), InputIterator> first, InputIterator last, const Allocator& alloc = Allocator())
 		template <class InputIterator>
 		vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
-		: vectorBase<T, Allocator>(alloc, last - first)
+		: vectorBase<T, Allocator>(alloc, ft::distance(first, last))
 		{	//range constructor
 			if(VECTOR_COMMENTS == 1)
 				std::cout << "Range constructor called" << std::endl;
