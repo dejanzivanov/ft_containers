@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	//#include <map>
 	//#include <stack>
 	#include <vector>
@@ -15,6 +15,7 @@
 	//#include <stack.hpp>
 	#include "vector.hpp"
 	#include "utils.hpp"
+	#include "stack.hpp"
 	#include <iostream>
 	#include <sstream>
 	// #include <iterator>
@@ -707,6 +708,44 @@ int main(int argc, char** argv) {
 		*lst_it++ = i * 5;
 	vct.assign(lst.begin(), lst.end());
 	print(24, vct);
+
+	outputTitle("Testing stack container");
+
+	ft::stack<int> mystack;
+	for (int i = 0; i < 5; ++i)
+	{
+		mystack.push(i);
+	}
+
+	std::cout << "Mystack size is: " << mystack.size() << "\n";
+	mystack.pop();
+	std::cout << "Mystack size after pop is: " << mystack.size() << "\n";
+
+	std::cout << "Mystack top is: " << mystack.top() << "\n";
+
+	ft::stack<int> mystack1;
+	
+	for (int i = 0; i < 5; ++i)
+	{
+		mystack1.push(i);
+	}
+
+	ft::stack<int> mystack2;
+
+	for (int i = 6; i < 11; ++i)
+	{
+		mystack2.push(i);
+	}
+
+	std::cout << "Mystack1 size is: " << mystack1.size() << "and last value is: " << mystack1.top() << "\n";
+	std::cout << "Mystack2 size is: " << mystack2.size() << "and last value is: " << mystack2.top() << "\n";
+
+
+	std::cout << "OOA before " << mystack1.top() << "\n";
+
+	mystack1 = mystack2;
+
+	std::cout << "OOA after " << mystack1.top() << "\n";
 	
 	return (0);
 
