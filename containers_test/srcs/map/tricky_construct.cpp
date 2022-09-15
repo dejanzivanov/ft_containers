@@ -27,6 +27,8 @@ int		main(void)
 
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	lst.clear();
+	
+	// ✅✅
 
 	printSize(mp);
 

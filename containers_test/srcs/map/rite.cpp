@@ -24,6 +24,9 @@ int		main(void)
 	printPair(inc(it.base(), 1));
 
 	std::cout << "TEST OFFSET" << std::endl;
+
+	// ✅✅
+
 	--it;
 	printPair(it);
 	printPair(it.base());
@@ -32,6 +35,10 @@ int		main(void)
 	while (it != ite)
 		std::cout << "[rev] " << printPair(it++, false) << std::endl;
 	printReverse(mp);
+	
+
+	// ✅✅
+
 
 	return (0);
 }

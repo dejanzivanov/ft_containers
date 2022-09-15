@@ -24,7 +24,10 @@ int		main(void)
 	for (int i = 0; it != ite; ++it)
 		it->second = ++i * 7;
 
+	// ✅✅
+
 	std::cout << "\t-- PART ONE --" << std::endl;
+	
 	printSize(mp);
 	printSize(mp_range);
 	printSize(mp_copy);

@@ -22,6 +22,8 @@ int		main(void)
 	printPair(ite++);
 	printPair(++ite);
 
+	// ✅✅
+
 	it->second.m();
 	ite->second.m();
 
@@ -30,10 +32,14 @@ int		main(void)
 	printPair(it++);
 	printPair(++it);
 
+	// ✅✅
+
 	printPair(--ite);
 	printPair(ite--);
 	printPair(--ite);
 	printPair(ite--);
+
+	// ✅✅
 
 	(*it).second.m();
 	(*ite).second.m();
@@ -42,6 +48,8 @@ int		main(void)
 	printPair(it--);
 	printPair(it--);
 	printPair(--it);
+
+	// ✅✅
 
 	return (0);
 }

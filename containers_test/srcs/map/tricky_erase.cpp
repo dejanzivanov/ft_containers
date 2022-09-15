@@ -73,6 +73,8 @@ int		main(void)
 	ft_erase(mp, 25); // right != NULL; left != NULL
 	ft_erase(mp, 55); // right != NULL; left != NULL
 
+	// ✅✅
+
 	/* After deleting 25 and 55, I would get:
 	 *                                      42
 	 *                     /                                            \
@@ -89,6 +91,8 @@ int		main(void)
 	ft_erase(mp, 24); // right != NULL; left != NULL
 	ft_erase(mp, 54); // right != NULL; left != NULL
 
+	// ✅✅
+
 	/* After deleting 24 and 54, I would get:
 	 *                                      42
 	 *                     /                                            \
@@ -104,6 +108,8 @@ int		main(void)
 
 	ft_erase(mp, 22); // right == NULL; left == NULL
 	ft_erase(mp, 51); // right == NULL; left == NULL
+
+	// ✅✅
 
 	ft_erase(mp, 21); // right == NULL; left != NULL
 	ft_erase(mp, 53); // right != NULL; left == NULL
@@ -123,6 +129,8 @@ int		main(void)
 
 	ft_erase(mp, 20); // right == NULL; left != NULL
 
+	// ✅✅
+
 	/* After deleting 20, I would get:
 	 *                                      42
 	 *                     /                                            \
@@ -137,6 +145,8 @@ int		main(void)
 	 * */
 
 	ft_erase(mp, 23); // right != NULL; left != NULL
+
+	// ✅✅
 
 	/* After deleting 23, I would get:
 	 *                                      42
@@ -167,6 +177,8 @@ int		main(void)
 	 * */
 
 	ft_erase(mp, 38); // right != NULL; left != NULL; parent == NULL
+
+	// ✅✅
 
 	/* After deleting 38, I would get:
 	 *                                      35
@@ -210,6 +222,8 @@ int		main(void)
 	 *                                            43    45    47    49
 	 *
 	 * */
+
+	// ✅✅
 
 	return (0);
 }

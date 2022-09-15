@@ -29,6 +29,8 @@ int main (void)
 	std::cout << "bar contains:" << std::endl;
 	printSize(bar);
 
+	// ✅✅
+
 	foo.swap(bar);
 
 	std::cout << "AFTER SWAP" << std::endl;
@@ -37,6 +39,8 @@ int main (void)
 	printSize(foo);
 	std::cout << "bar contains:" << std::endl;
 	printSize(bar);
+
+	// ✅✅
 
 	std::cout << "Iterator validity:" << std::endl;
 	std::cout << (it_foo == bar.begin()) << std::endl;

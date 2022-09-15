@@ -87,7 +87,7 @@ namespace ft
 	typename enable_if<is_integral<T>::value,bool>::type is_odd (T i)
 	{
 		return bool(i%2);
-	};
+	}
 
 	template <class T>
 	bool is_even(T i)
@@ -98,7 +98,7 @@ namespace ft
 		if (!h)
 			return (!bool(i%2));
 		return (0) ;
-	};
+	}
 
 	template <class T1, class T2>
 	struct pair
@@ -113,7 +113,7 @@ namespace ft
 			pair() : first(), second(){};
 
 		template <class U, class V>
-		pair(const pair<U, V>& pr) : first(pr.first), second(pr.second){};
+		pair(const pair<U, V>& pr) : first(pr.first), second(pr.second){}
 
 		pair(const first_type& a, const second_type& b) : first(a), second(b){};
 
@@ -221,7 +221,7 @@ namespace ft
 			}
 		}
 		return true;
-	};
+	}
 
 	template<typename _Arg, typename _Result>
 	struct unary_function
@@ -263,4 +263,7 @@ namespace ft
 			return __x.first;
 		}
 	};
+
+
+
 }

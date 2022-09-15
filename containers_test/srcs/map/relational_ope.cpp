@@ -26,20 +26,30 @@ int		main(void)
 	cmp(mp1, mp1); // 0
 	cmp(mp1, mp2); // 1
 
+	// ✅✅
+
 	mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
 
 	cmp(mp1, mp2); // 2
 	cmp(mp2, mp1); // 3
+
+	// ✅✅
 
 	(++(++mp1.begin()))->second = 42;
 
 	cmp(mp1, mp2); // 4
 	cmp(mp2, mp1); // 5
 
+	// ✅✅
+
 	swap(mp1, mp2);
+
+	// ✅✅
 
 	cmp(mp1, mp2); // 6
 	cmp(mp2, mp1); // 7
+
+	// ✅✅
 
 	return (0);
 }

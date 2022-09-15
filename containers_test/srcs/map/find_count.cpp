@@ -31,12 +31,16 @@ int		main(void)
 	mp[90] = "8";
 	printSize(mp);
 
+	// ✅✅
+
 	std::cout << "\t-- FIND --" << std::endl;
 	ft_find(12);
 	ft_find(3);
 	ft_find(35);
 	ft_find(90);
 	ft_find(100);
+
+	// ✅✅
 
 	std::cout << "\t-- COUNT --" << std::endl;
 	ft_count(-3);
@@ -47,6 +51,8 @@ int		main(void)
 	ft_count(100);
 
 	mp.find(27)->second = "newly inserted mapped_value";
+
+	// ✅✅
 
 	printSize(mp);
 

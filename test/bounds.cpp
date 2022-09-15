@@ -1,6 +1,5 @@
 #include "common.hpp"
 #include <list>
-#include <map>
 
 #define T1 int
 #define T2 foo<int>
@@ -49,8 +48,6 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	printSize(mp);
 
-	// ✅✅
-
 	ft_const_bound(mp, -10);
 	ft_const_bound(mp, 1);
 	ft_const_bound(mp, 5);
@@ -58,8 +55,6 @@ int		main(void)
 	ft_const_bound(mp, 50);
 
 	printSize(mp);
-
-	// ✅✅
 
 	mp.lower_bound(3)->second = 404;
 	mp.upper_bound(7)->second = 842;

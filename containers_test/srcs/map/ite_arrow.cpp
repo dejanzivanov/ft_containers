@@ -43,5 +43,7 @@ int		main(void)
 	printPair(it--);
 	printPair(--it);
 
+	// ✅✅
+
 	return (0);
 }

@@ -14,8 +14,13 @@ int		main(void)
 
 	printSize(mp);
 
+	// ✅✅
+
 	std::cout << "insert a new element via operator[]: " << mp['d'] << std::endl;
 
 	printSize(mp);
+
+	// ✅✅
+	
 	return (0);
 }

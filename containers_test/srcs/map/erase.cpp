@@ -32,10 +32,16 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	printSize(mp);
 
+	// ✅✅
+
 	ft_erase(mp, ++mp.begin());
+
+	// ✅✅
 
 	ft_erase(mp, mp.begin());
 	ft_erase(mp, --mp.end());
+
+	// ✅✅
 
 	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
 	ft_erase(mp, --(--(--mp.end())), --mp.end());
@@ -45,11 +51,16 @@ int		main(void)
 	printSize(mp);
 	ft_erase(mp, --(--(--mp.end())), mp.end());
 
+	// ✅✅
+
 	mp[12] = "ONE";
 	mp[13] = "TWO";
 	mp[14] = "THREE";
 	mp[15] = "FOUR";
 	printSize(mp);
+
+	// ✅✅
+	
 	ft_erase(mp, mp.begin(), mp.end());
 
 	return (0);

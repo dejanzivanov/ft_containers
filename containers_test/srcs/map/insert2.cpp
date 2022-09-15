@@ -25,6 +25,8 @@ int		main(void)
 	lst.push_back(T3(50, "mdr"));
 	lst.push_back(T3(35, "funny"));
 
+	// ✅✅
+
 	lst.push_back(T3(45, "bunny"));
 	lst.push_back(T3(21, "fizz"));
 	lst.push_back(T3(38, "buzz"));
@@ -34,8 +36,12 @@ int		main(void)
 	for (itlst = lst.begin(); itlst != lst.end(); ++itlst)
 		printPair(itlst);
 
+	// ✅✅
+
 	TESTED_NAMESPACE::map<T1, T2> mp;
 	ft_insert(mp, lst.begin(), lst.end());
+
+	// ✅✅
 
 	lst.clear();
 
@@ -53,6 +59,8 @@ int		main(void)
 
 	ft_insert(mp, lst.begin(), lst.begin());
 	ft_insert(mp, lst.begin(), lst.end());
+
+	// ✅✅
 
 	return (0);
 }

@@ -22,6 +22,8 @@ int		main(void)
 {
 	_map	mp;
 
+	// ✅✅
+
 	mp['a'] = 2.3;
 	mp['b'] = 1.4;
 	mp['c'] = 0.3;

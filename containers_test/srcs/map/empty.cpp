@@ -21,13 +21,19 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end()), mp2;
 	TESTED_NAMESPACE::map<T1, T2>::iterator it;
 
+	// ✅✅
+
 	lst.clear();
 	is_empty(mp);
 	printSize(mp);
 
+	// ✅✅
+
 	is_empty(mp2);
 	mp2 = mp;
 	is_empty(mp2);
+
+	// ✅✅
 
 	it = mp.begin();
 	for (unsigned long int i = 3; i < mp.size(); ++i)
@@ -35,6 +41,8 @@ int		main(void)
 
 	printSize(mp);
 	printSize(mp2);
+
+	// ✅✅
 
 	mp2.clear();
 	is_empty(mp2);

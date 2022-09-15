@@ -24,8 +24,12 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	printSize(mp);
 
+	// ✅✅
+
 	for (int i = 2; i < 4; ++i)
 		ft_erase(mp, i);
+
+	// ✅✅
 
 	ft_erase(mp, mp.begin()->first);
 	ft_erase(mp, (--mp.end())->first);
