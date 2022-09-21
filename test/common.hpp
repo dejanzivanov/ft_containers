@@ -4,6 +4,7 @@
 #else
 # include <map>
 #endif /* !defined(STD) */
+#include <vector>
 
 #define _pair TESTED_NAMESPACE::pair
 

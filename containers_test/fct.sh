@@ -18,9 +18,9 @@ CFLAGS="-Wall -Wextra -Werror -std=c++98"
 # CFLAGS+=" -fsanitize=address -g3"
 
 ft_compile_output="/dev/null"
-# ft_compile_output="/dev/pts/11"
+# ft_compile_output="/dev/pts/6"
 std_compile_output="/dev/null"
-# std_compile_output="/dev/pts/12"
+# std_compile_output="/dev/pts/6"
 
 
 function pheader () {

@@ -54,6 +54,7 @@
 #include "iterator.hpp"
 #include "rb_tree.hpp"
 #include <functional>
+#include <stdexcept>
 
 namespace ft
 {
@@ -199,7 +200,10 @@ namespace ft
 		{
 			iterator it = rbt_tree.find(k);
 			if (it == rbt_tree.end())
+			{
 				throw std::out_of_range("map::at");
+			}
+				
 			return (*it).second;
 		}
 

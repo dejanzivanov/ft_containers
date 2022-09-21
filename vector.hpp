@@ -36,15 +36,6 @@ namespace ft
 			vector_implementation_data(allocator const& a) throw() :  allocator(a) , start(), finish(), endOfStorage() { }
 		};
 
-		// pointer data_allocation(size_t n)
-		// {
-		// 	if (n != 0)
-		// 		// return vector_implementation_data.allocate(n); // -- reminder of reality 
-		// 		return vector_implementation_data.allocate(n); // -- reminder of reality 
-		// 	else
-		// 		return pointer();
-		// }
-
 		pointer data_allocation(size_t __n)
 		{
 		return __n != 0 ? get_allocator().allocate(__n) : pointer();
@@ -134,34 +125,19 @@ namespace ft
 		using typename vectorBase<T, Allocator>::vector_implementation_data;
 		using vectorBase<T, Allocator>::get_allocator;
 
-
-		/*normal iterator is used because is needed for vector container*/
-
 		typedef typename Allocator::value_type											value_type; // T would also be possible
 		typedef typename Allocator::reference											reference;
 		typedef typename Allocator::const_reference										const_reference;
 		typedef typename Allocator::pointer												pointer;
 		typedef typename Allocator::const_pointer										const_pointer;
 		typedef typename ft::__normal_iterator<pointer, vector>					iterator;
-		// typedef typename __gnu_cxx::__normal_iterator<pointer, vector>					iterator;
 		typedef typename ft::__normal_iterator<const_pointer, vector>			const_iterator;
-		// typedef typename __gnu_cxx::__normal_iterator<const_pointer, vector>			const_iterator;
 		typedef ft::reverse_iterator<iterator>											reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 		typedef typename Allocator::difference_type										difference_type;
 		typedef typename Allocator::size_type											size_type;
 		
 
-		// vector() : vectorBase<T, Allocator>()
-		// {
-		// 	if (VECTOR_COMMENTS)
-		// 		std::cout << "default constructor called" << std::endl;
-			
-		// 	//this one can be deleted maybe
-		// }
-
-
-		//1)
 		explicit vector (const Allocator& alloc = Allocator()) //reference pages 
 			: vectorBase<T, Allocator>(alloc, 0)
 		{
@@ -179,18 +155,6 @@ namespace ft
 			this->data_implement.finish = this->data_implement.start + n;
 		};
 
-		//3) todo
-		// vector (InputIterator first, InputIterator last, const Allocator& alloc = Allocator())
-
-		// template <class InputIterator>
-		// vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
-		/*maybe default ^*/
-		
-		// vector( !(ft::is_integral<InputIterator>::value) first, InputIterator last, const Allocator& alloc = Allocator())
-		
-		
-		// template <class InputIterator>
-		// vector(typename ft::enable_if<(typename InputIterator::iterator_category == std::iterator_traits::input_iterator_tag), InputIterator> first, InputIterator last, const Allocator& alloc = Allocator())
 		template <class InputIterator>
 		vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
 		: vectorBase<T, Allocator>(alloc, ft::distance(first, last))
@@ -201,31 +165,6 @@ namespace ft
 			this->data_implement.finish += ft::distance(first, last); 
 		}
 
-
-		// template <class InputIterator>
-		// // vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator(), typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
-		// vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value),InputIterator>::type first, InputIterator last, const Allocator& alloc = Allocator())
-		// : vectorBase<T, Allocator>(alloc, last - first)
-		// {	//range constructor
-		// 	if(VECTOR_COMMENTS == 1)
-		// 		std::cout << "Range constructor called" << std::endl;
-		// 	// std::uninitialized_copy(first, last, this->data_implement.start);
-
-		// 	size_type n = std::distance(first, last);
-		// 	this->data_implement.start = this->get_allocator().allocate(n);
-		// 	this->data_implement.endOfStorage = this->data_implement.start + n;
-		// 	this->data_implement.finish = this->data_implement.start;
-			
-		// 	while(n--)
-		// 	{
-		// 		this->get_allocator().construct(this->data_implement.finish++, *first++);
-		// 	}
-			
-		// }
-
-		//
-
-		//4)
 		vector (const vector& x)
 			:vectorBase<T, Allocator>(x.get_allocator(), x.capacity())
 		{
@@ -261,12 +200,11 @@ namespace ft
 
 		size_type size() const throw()
 		{
-			return (this->data_implement.finish - this->data_implement.start);
+			return size_type(this->data_implement.finish - this->data_implement.start);
 		}
 
 		size_type max_size() const throw()
 		{
-			//return (std::numeric_limits<size_type>::max() / sizeof(value_type));
 			return (get_allocator().max_size());
 		}
 
@@ -274,41 +212,7 @@ namespace ft
 		{
 			return (this->data_implement.start == this->data_implement.finish);
 		}
-
-		/*void resize (size_type n, value_type val = value_type())
-		{
-			if (n < size())
-			{
-				for (T* p = vector_implementation_data->start + n; p != vector_implementation_data->finish; ++p)
-				{
-					p->~T();
-				}
-			}
-			else if (n > size())
-			{
-				for (T* p = vector_implementation_data->start + n; p != vector_implementation_data->finish; ++p)
-				{
-					push_back(val);
-				}
-			}
-			vector_implementation_data->finish = vector_implementation_data->start + n;
-		} */
-
-// FT 
-// Size6 of vec14 after insert is: 8 and a capacity is: 8
-// 9.  1 2 3 6 7
-// Size6 of vec14 after insert is: 5 and a capacity is: 8
-// 10.  0 0 0 0 0 1 2 3
-// 11.  0 0 20000 0 0 0 1 2 3
-// v1 size is: 9 and a capacity is: 9 after insert
-
-// STD
-// 10.  0 0 0 0 0 1 2 3
-// 11.  0 0 20000 0 0 0 1 2 3
-// v1 size is: 9 and a capacity is: 10 after insert 
-
-
-
+		
 		iterator insert(iterator position, const value_type& val)
 		{			
 			size_t elem = position - this->begin();
@@ -378,27 +282,27 @@ namespace ft
 			ft::swap(a, *this);
 		}
 
-		void resize(size_type new_size)
+		void resize (size_type n, value_type val = value_type())
 		{
-			//This functiion will resize the vector to the specified number of elements,
-			// If the number is smaller then the vector is truncated, otherwise default constructed elements are appended
-
-			if(new_size > size())
+			if (n > this->max_size())
 			{
-				vectorBase<T, Allocator> temp(new_size);
-				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, temp.data_implement.start);
-				temp.data_implement.finish = temp.data_implement.start + new_size;
-				ft::swap(*this, temp);
+				throw (std::length_error("vector::resize"));
 			}
-			else if(new_size < size())
+			else if (n < this->size())
 			{
-				vectorBase<T, Allocator> temp(new_size);
-				std::uninitialized_copy(this->data_implement.start, this->data_implement.finish, temp.data_implement.start);
-				temp.data_implement.finish = temp.data_implement.start + new_size;
-				ft::swap(*this, temp);
+				while (this->size() > n)
+				{
+					--this->data_implement.finish;
+					get_allocator().destroy(this->data_implement.finish);
+				}
 			}
+			else
+			{
+				this->insert(this->end(), n - this->size(), val);
+			}
+				
 		}
-	
+
 		void reallocate(unsigned int n)
 		{	
 			if(VECTOR_COMMENTS)
