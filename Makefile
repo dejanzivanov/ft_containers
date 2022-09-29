@@ -98,6 +98,8 @@ fclean:		clean
 			@${RM} ${SRCSTD_42_CONTAINER_BINARY}
 			@${RM} ${SRC_ALL_FT}
 			@${RM} ${SRC_ALL_STD}
+			@${RM} *.o
+			@${RM} ./tests/*.o
 
 re:			fclean all
 

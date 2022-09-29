@@ -91,7 +91,6 @@ namespace ft
     __distance(_InputIterator __first, _InputIterator __last,
                input_iterator_tag)
     {
-      // check for random input iterator - Tom&Jerry
       typename iterator_traits<_InputIterator>::difference_type __n = 0;
       while (__first != __last)
 		{
@@ -106,7 +105,6 @@ namespace ft
     __distance(_RandomAccessIterator __first, _RandomAccessIterator __last,
                random_access_iterator_tag)
     {
-      // check for random access iterator - Tom&Jerry
       return __last - __first;
     }
 
@@ -122,9 +120,6 @@ namespace ft
     inline void
     __advance(_InputIterator& __i, _Distance __n, input_iterator_tag)
     {
-      // check for input iterator - Tom&Jerry
-     //  check for assert - Tom&Jerry
-     //   __glibcxx_assert(__n >= 0);
         while (__n--)
 		{
 			 ++__i;
@@ -136,7 +131,6 @@ namespace ft
     __advance(_BidirectionalIterator& __i, _Distance __n,
 	      bidirectional_iterator_tag)
     {
-	  // check for bidirectional iterator - Tom&Jerry
       if (__n > 0)
         while (__n--)
 	  ++__i;
@@ -150,7 +144,6 @@ namespace ft
     __advance(_RandomAccessIterator& __i, _Distance __n,
               random_access_iterator_tag)
     {
-      // check for random access iterator - Tom&Jerry
       __i += __n;
     }
 
@@ -401,7 +394,6 @@ namespace ft
       typedef typename __traits_type::reference 	    reference;
       typedef typename __traits_type::pointer   	    pointer;
 
-		//const and throw() needs to be added - Tom&Jerry
       __normal_iterator() throw() : _M_current(_Iterator()) { }
 
       explicit
@@ -415,9 +407,6 @@ namespace ft
       	       (ft::are_same<_Iter, typename _Container::pointer>::value),
 		      _Container>::type>& __i) throw()
         : _M_current(__i.base()) { }
-
-		
-
 
       // Forward iterator requirements
       reference
